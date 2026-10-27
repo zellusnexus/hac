@@ -48,13 +48,6 @@
     }
   });
 
-  // Hide the hero video element if no clip has been added yet so the fallback background shows.
-  var video = document.querySelector('.hero-media');
-  if (video) {
-    var source = video.querySelector('source');
-    (source || video).addEventListener('error', function () { video.style.display = 'none'; });
-  }
-
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 })();
