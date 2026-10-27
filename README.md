@@ -8,9 +8,10 @@ Open `index.html` in a browser — no build step.
 
 ## Before launch
 - **Copy:** elements marked `data-placeholder` (phone, address, stats, testimonial, about text) are stand-ins. Replace them with real content.
-- **Logo:** loaded from Uploadcare (header, footer, favicon). To self-host, save it as `assets/logo.png` and update the three URLs in `index.html`. Drop the white plate (`.logo` in `css/styles.css`) if the artwork is white-on-transparent.
+- **Logo:** loaded from Uploadcare (header, footer, favicon). To self-host, save it as `assets/logo.png` and update the three URLs in `index.html`.
 - **Media:** add files to `assets/` and they'll be picked up automatically:
-  - `hero.mp4` (looping, muted drone/site clip) and `hero.jpg` (poster/fallback)
+  - `hero.mp4` — the hero background video (autoplays muted and loops; keep it short and compressed, ~5–10 MB)
+  - `hero.jpg` — a still frame shown while the video loads
   - `service-custom-homes.jpg`, `service-remodeling.jpg`, `service-kitchens.jpg`,
     `service-carpentry.jpg`, `service-commercial.jpg`, `service-outdoor.jpg`
   - `about.jpg`, `project-1.jpg`, `project-2.jpg`, `project-3.jpg`

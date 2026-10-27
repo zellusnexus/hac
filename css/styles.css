@@ -120,18 +120,11 @@ p { margin: 0 0 1em; }
   padding: 0 var(--gutter);
   display: flex; align-items: center; gap: 2.5rem;
 }
-/* Logo sits on a white plate so it reads over the dark hero and navy header */
-.logo {
-  display: block; flex-shrink: 0;
-  background: var(--white);
-  padding: 6px;
-  border-radius: 4px;
-  box-shadow: 0 4px 14px rgba(0,0,0,.2);
-  line-height: 0;
-}
-.logo img { height: 64px; width: auto; }
+/* White transparent logo; soft shadow keeps it legible over bright video frames */
+.logo { display: block; flex-shrink: 0; line-height: 0; }
+.logo img { height: 68px; width: auto; filter: drop-shadow(0 1px 6px rgba(0,0,0,.35)); }
 .logo-footer { display: inline-block; }
-.logo-footer img { height: 96px; }
+.logo-footer img { height: 96px; filter: none; }
 
 .main-nav { flex: 1; }
 .main-nav > ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.8rem; }
