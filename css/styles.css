@@ -1,4 +1,4 @@
-/* Master Craftsmanship — FITE-inspired theme
+/* Huntsville American Cabinets — FITE-inspired theme
    Navy announcement bar, transparent header over full-bleed hero,
    serif statements, geometric sans UI, burnt-orange CTAs. */
 
@@ -203,8 +203,9 @@ p { margin: 0 0 1em; }
   line-height: 1.22;
   color: var(--white);
   text-shadow: 0 2px 18px rgba(0,0,0,.35);
-  margin-bottom: 1.4em;
+  margin-bottom: .5em;
 }
+.hero-sub { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: rgba(255,255,255,.92); text-shadow: 0 1px 12px rgba(0,0,0,.35); margin: 0 auto 2.2em; max-width: 680px; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1.5rem 2.75rem; }
 
 /* Intro statement */
@@ -223,11 +224,15 @@ p { margin: 0 0 1em; }
 /* Sections */
 .services, .projects, .process { padding: clamp(70px, 9vw, 120px) 0; }
 .section-head { text-align: center; margin-bottom: 3rem; }
+.section-intro { max-width: 680px; margin: 0 auto; color: var(--muted); font-size: 1.08rem; }
 .section-head.row { display: flex; align-items: flex-end; justify-content: space-between; text-align: left; gap: 1rem; flex-wrap: wrap; }
 .section-head.row h2 { margin-bottom: 0; }
 
 /* Service cards */
 .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.card-grid.four { grid-template-columns: repeat(4, 1fr); }
+.card-grid.four .service-card { min-height: 440px; }
+.card-grid.four .service-body h3 { font-size: 1.4rem; }
 .service-card {
   position: relative; display: flex; align-items: flex-end;
   min-height: 380px; text-decoration: none; overflow: hidden;
@@ -255,6 +260,9 @@ p { margin: 0 0 1em; }
 .values li { padding: .8em 0 .8em 1.6em; border-top: 1px solid rgba(255,255,255,.14); position: relative; }
 .values li::before { content: ""; position: absolute; left: 0; top: 1.35em; width: 8px; height: 8px; background: var(--orange); }
 .values strong { color: var(--white); }
+.badges { list-style: none; padding: 0; margin: 0 0 2.2em; display: flex; flex-wrap: wrap; gap: 12px; }
+.badges li { border: 1px solid rgba(255,255,255,.22); padding: .7em 1.1em; font-weight: 600; font-size: .9rem; color: var(--white); line-height: 1.35; }
+.badges span { display: block; font-weight: 500; font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: #ffb27a; }
 
 /* Projects */
 .project-grid { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 280px 280px; gap: 24px; }
@@ -290,11 +298,13 @@ p { margin: 0 0 1em; }
 .cta-band h2 { color: var(--white); }
 .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .contact-form label span { display: block; font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .35em; color: #b9cdd8; }
-.contact-form input, .contact-form textarea {
+.contact-form input, .contact-form textarea, .contact-form select {
   width: 100%; padding: .85em 1em; border: 1px solid rgba(255,255,255,.25);
   background: rgba(255,255,255,.08); color: var(--white); font: inherit; border-radius: 0;
 }
-.contact-form input:focus, .contact-form textarea:focus { outline: 2px solid var(--orange); outline-offset: 0; border-color: transparent; }
+.contact-form select { appearance: none; background: rgba(255,255,255,.08) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat right 1em center / 12px 8px; padding-right: 2.6em; }
+.contact-form select option { color: var(--ink); }
+.contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { outline: 2px solid var(--orange); outline-offset: 0; border-color: transparent; }
 .full { grid-column: 1 / -1; }
 
 /* Footer */
@@ -323,7 +333,8 @@ p { margin: 0 0 1em; }
   .mobile-nav a { color: var(--white); text-decoration: none; padding: .9rem var(--gutter); border-top: 1px solid rgba(255,255,255,.08); font-weight: 500; }
   .mobile-nav .btn { margin: 1rem var(--gutter) 1.4rem; text-align: center; padding: 1em; }
   .site-header.menu-open { background: var(--navy-deep); }
-  .card-grid { grid-template-columns: repeat(2, 1fr); }
+  .card-grid, .card-grid.four { grid-template-columns: repeat(2, 1fr); }
+  .card-grid.four .service-card { min-height: 380px; }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -336,8 +347,8 @@ p { margin: 0 0 1em; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .stats-grid > div:nth-child(3) { border-left: 0; }
   .stats-grid > div:nth-child(n+3) { border-top: 1px solid var(--line); }
-  .card-grid { grid-template-columns: 1fr; }
-  .service-card { min-height: 300px; }
+  .card-grid, .card-grid.four { grid-template-columns: 1fr; }
+  .service-card, .card-grid.four .service-card { min-height: 300px; }
   .split { grid-template-columns: 1fr; }
   .split-media { min-height: 280px; }
   .project-grid { grid-template-columns: 1fr; grid-template-rows: none; }
