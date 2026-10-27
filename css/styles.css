@@ -120,16 +120,12 @@ p { margin: 0 0 1em; }
   padding: 0 var(--gutter);
   display: flex; align-items: center; gap: 2.5rem;
 }
-/* Logo sits on a white plate so it reads over the dark hero and navy header */
+/* Logo artwork is white-on-transparent; a soft shadow keeps it legible over light hero frames */
 .logo {
   display: block; flex-shrink: 0;
-  background: var(--white);
-  padding: 6px;
-  border-radius: 4px;
-  box-shadow: 0 4px 14px rgba(0,0,0,.2);
   line-height: 0;
 }
-.logo img { height: 64px; width: auto; }
+.logo img { height: 64px; width: auto; filter: drop-shadow(0 2px 6px rgba(0,0,0,.45)); }
 .logo-footer { display: inline-block; }
 .logo-footer img { height: 96px; }
 
