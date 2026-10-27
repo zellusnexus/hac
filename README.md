@@ -1,8 +1,8 @@
 # Huntsville American Cabinets — site redesign
 
 Static redesign for Huntsville American Cabinets, styled after the FITE Building Company look:
-navy announcement bar, transparent nav over a full-bleed video hero, serif statements
-(Source Serif 4), geometric sans UI (Jost), and burnt-orange CTAs.
+a dark grey and dark brown palette with gold accents, transparent nav over a full-bleed video hero,
+serif statements (Source Serif 4), geometric sans UI (Jost), and gold CTAs.
 
 Open `index.html` in a browser — no build step.
 
