@@ -6,8 +6,22 @@ serif statements (Source Serif 4), geometric sans UI (Jost), and gold CTAs.
 
 Open `index.html` in a browser — no build step.
 
+## Pages
+Every nav item has its own page, and all pages share the same header, footer and `css/styles.css`:
+
+| Menu | Pages |
+| --- | --- |
+| Who We Serve | `who-we-serve.html` (overview), `commercial.html`, `residential.html`, `architects-designers.html`, `custom-home-builders.html` |
+| Portfolio | `portfolio.html` (all projects), `portfolio-residential.html`, `portfolio-commercial.html`, `portfolio-builder.html` |
+| About Us | `about.html` (Our Story), `quality.html`, `testimonials.html` |
+| Our Process | `process.html` |
+| Contact Us | `contact.html` |
+
+The inner-page copy is a draft based on what a custom cabinet shop like HAC would likely say. Have the client review it,
+especially the history timeline, industries served, FAQ answers, timelines, hours and service area.
+
 ## Before launch
-- **Copy:** elements marked `data-placeholder` (phone, email, street address, project captions, testimonial) are stand-ins. Replace them with real content.
+- **Copy:** elements marked `data-placeholder` (phone, email, street address, hours, project captions, testimonials, history timeline) are stand-ins. Replace them with real content.
 - **Logo:** loaded from Uploadcare (header, footer, favicon). To self-host, save it as `assets/logo.png` and update the three URLs in `index.html`. The artwork is white-on-transparent, so keep it on dark backgrounds.
 - **Media:** add files to `assets/` and they'll be picked up automatically:
   - `hero.mp4` (looping, muted drone/site clip) and `hero.jpg` (poster/fallback)
