@@ -29,5 +29,9 @@ especially the history timeline, industries served, FAQ answers, timelines, hour
     `serve-builders.jpg` (the four "Who We Serve" cards)
   - `about.jpg`, `project-1.jpg`, `project-2.jpg`, `project-3.jpg`
   Until then, tinted gradients show in their place.
+- **Portfolio photos:** the Residential, Commercial and Builder galleries are generated from
+  `data/portfolio-images.txt` (one `<uploadcare-uuid> <filename>` per line). The filename prefix
+  (`kitchen-`, `bar-`, `commercial-`…) picks the page and room group; see `GROUPS` in
+  `scripts/build-portfolio.py`. After adding photos, run `python3 scripts/build-portfolio.py`.
 - **Contact form:** `action="#"` — point it at your form handler (Formspree, Netlify Forms, etc.).
 - **Colors/fonts:** all tokens live at the top of `css/styles.css`.
