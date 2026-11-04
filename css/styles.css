@@ -307,6 +307,8 @@ p { margin: 0 0 1em; }
   width: 100%; padding: .85em 1em; border: 1px solid rgba(255,255,255,.25);
   background: rgba(255,255,255,.08); color: var(--white); font: inherit; border-radius: 0;
 }
+.contact-form label { min-width: 0; }
+.contact-form textarea { resize: vertical; max-width: 100%; min-height: 8em; }
 .contact-form select { appearance: none; background: rgba(255,255,255,.08) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat right 1em center / 12px 8px; padding-right: 2.6em; }
 .contact-form select option { color: var(--ink); }
 .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { outline: 2px solid var(--gold); outline-offset: 0; border-color: transparent; }
