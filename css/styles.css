@@ -329,6 +329,10 @@ p { margin: 0 0 1em; }
 .site-footer a { text-decoration: none; }
 .site-footer a:hover { color: var(--white); }
 .footer-tag { margin-top: 1.2em; }
+.site-footer .footer-note { font-size: .88em; opacity: .8; }
+.site-footer .footer-sub { margin: 1.8em 0 .8em; }
+.footer-hours { font-size: .92em; }
+.footer-bottom a:hover { color: var(--white); }
 .footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; border-top: 1px solid rgba(255,255,255,.1); padding-top: 22px; padding-bottom: 22px; font-size: .85rem; }
 .footer-bottom p { margin: 0; }
 
@@ -503,6 +507,12 @@ a.project:hover::after, a.project:focus-visible::after { box-shadow: inset 0 0 0
 .info-list strong { display: block; font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-light); margin-bottom: .2em; }
 .info-list a { text-decoration: none; color: var(--white); }
 .info-list a:hover { color: var(--gold-light); }
+.info-list .muted-note { display: inline-block; margin-top: .35em; font-size: .9em; opacity: .75; }
+.hours { display: grid; grid-template-columns: max-content 1fr; gap: .25em 1.5em; margin: .2em 0 0; }
+.hours dt, .hours dd { margin: 0; }
+.hours dt { opacity: .8; }
+.map-embed { margin-top: 2.5rem; aspect-ratio: 16 / 7; min-height: 280px; border: 0; width: 100%; display: block; }
+@media (max-width: 640px) { .map-embed { aspect-ratio: 4 / 3; } }
 
 @media (max-width: 1080px) {
   .feature-grid, .feature-grid.four { grid-template-columns: repeat(2, 1fr); }
