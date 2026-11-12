@@ -21,7 +21,8 @@ The inner-page copy is a draft based on what a custom cabinet shop like HAC woul
 especially the history timeline, industries served, FAQ answers, timelines, hours and service area.
 
 ## Before launch
-- **Copy:** elements marked `data-placeholder` (phone, email, street address, hours, project captions, testimonials, history timeline) are stand-ins. Replace them with real content.
+- **Contact info** (phone, fax, email, address, hours, map) comes from the current site, mastercraftsmanship.net.
+- **Copy:** elements marked `data-placeholder` (project captions, testimonials, history timeline) are stand-ins. Replace them with real content.
 - **Logo:** loaded from Uploadcare (header, footer, favicon). To self-host, save it as `assets/logo.png` and update the three URLs in `index.html`. The artwork is white-on-transparent, so keep it on dark backgrounds.
 - **Media:** add files to `assets/` and they'll be picked up automatically:
   - `hero.mp4` (looping, muted drone/site clip) and `hero.jpg` (poster/fallback)
