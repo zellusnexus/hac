@@ -356,8 +356,8 @@ p { margin: 0 0 1em; }
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
   grid-template-areas: "side steps"; column-gap: clamp(40px, 7vw, 100px);
 }
-/* Left column stays pinned while the steps scroll past (wide screens) */
-.process-side { grid-area: side; position: sticky; top: calc(var(--header-h) + 40px); align-self: start; }
+/* Left column is vertically centered beside the steps on wide screens */
+.process-side { grid-area: side; align-self: center; }
 .process-intro { grid-area: intro; }
 .process-intro p:not(.eyebrow) { color: var(--muted); max-width: 26em; margin: 0; }
 .process-intro p:not(.eyebrow) + p { margin-top: 1em; }
@@ -432,7 +432,6 @@ p { margin: 0 0 1em; }
   .card-grid, .card-grid.four { grid-template-columns: repeat(2, 1fr); }
   .card-grid.four .service-card { min-height: 340px; }
   .process-split { grid-template-columns: 1fr; grid-template-areas: "side" "steps"; }
-  .process-side { position: static; }
   .process-intro p:not(.eyebrow) { max-width: none; }
   .process-cta { margin: 1.6em 0 2.4em; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
