@@ -260,12 +260,12 @@ p { margin: 0 0 1em; }
 .service-card::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
   /* Even dim + light blur over the whole photo: still recognizable, text stays readable */
-  background: rgba(42,29,20,.6);
+  background: rgba(42,29,20,.68);
   -webkit-backdrop-filter: blur(.75px);
   backdrop-filter: blur(.75px);
   transition: background .3s;
 }
-.service-card:hover::before { background: rgba(42,29,20,.72); }
+.service-card:hover::before { background: rgba(42,29,20,.78); }
 .service-body { padding: 1.8rem; text-shadow: 0 1px 10px rgba(0,0,0,.45); }
 .service-body h3 { color: var(--white); font-family: var(--serif); font-size: 1.55rem; margin-bottom: .3em; }
 .service-body p { margin: 0 0 .8em; opacity: .9; }
