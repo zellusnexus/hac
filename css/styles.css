@@ -309,17 +309,45 @@ p { margin: 0 0 1em; }
 /* Projects */
 .project-grid { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 280px 280px; gap: 24px; }
 .project {
-  margin: 0; position: relative; overflow: hidden;
-  background: var(--img) center / cover, linear-gradient(140deg, #5a524b, #2b2b2b);
+  margin: 0; position: relative; overflow: hidden; isolation: isolate;
+  background: linear-gradient(140deg, #5a524b, #2b2b2b);
 }
-.project.large { grid-row: span 2; background: var(--img) center / cover, linear-gradient(140deg, #8d6c4f, #3d2b1f); }
+.project.large { grid-row: span 2; background: linear-gradient(140deg, #8d6c4f, #3d2b1f); }
+/* Photo on its own layer so it can zoom without moving the caption */
+.project::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--img) center / cover;
+  transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
+}
 .project figcaption {
   position: absolute; left: 0; right: 0; bottom: 0;
   padding: 1.4rem 1.6rem;
-  background: linear-gradient(to top, rgba(0,0,0,.7), transparent);
+  background: linear-gradient(to top, rgba(0,0,0,.75), transparent);
   color: var(--white); font-family: var(--serif); font-size: 1.35rem; font-weight: 600;
+  transition: padding-bottom .5s cubic-bezier(.2,.7,.2,1);
+  pointer-events: none;
 }
 .project figcaption span { display: block; font-family: var(--sans); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-light); margin-bottom: .2em; }
+.project-more {
+  display: block; font-family: var(--sans); font-style: normal; font-size: .75rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--gold-light);
+  max-height: 0; opacity: 0; overflow: hidden; transform: translateY(8px);
+  transition: max-height .45s ease, opacity .35s ease, transform .45s ease, margin-top .45s ease;
+}
+.project-more b { display: inline-block; transition: transform .35s ease; }
+.project-link { position: absolute; inset: 0; z-index: 1; }
+.project:hover::before, .project:focus-within::before { transform: scale(1.07); }
+.project:hover figcaption, .project:focus-within figcaption { padding-bottom: 1.9rem; }
+.project:hover .project-more, .project:focus-within .project-more { max-height: 2em; opacity: 1; transform: none; margin-top: .6em; }
+.project:hover .project-more b { transform: translateX(5px); }
+.project-link:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
+/* Scroll reveal: tiles rise in one after another (only when JS adds .reveal-on) */
+.reveal-on [data-reveal] > * { opacity: 0; transform: translateY(36px); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+.reveal-on [data-reveal] > :nth-child(2) { transition-delay: .15s; }
+.reveal-on [data-reveal] > :nth-child(3) { transition-delay: .3s; }
+.reveal-on [data-reveal].in > * { opacity: 1; transform: none; }
+.link-arrow { display: inline-block; transition: transform .3s ease; }
+.link-arrow:hover { transform: translateX(4px); }
 
 /* Process */
 .process { background: var(--sand); }
