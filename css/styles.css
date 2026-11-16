@@ -365,7 +365,7 @@ p { margin: 0 0 1em; }
 .steps li { position: relative; display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding: 1.7rem 0; }
 .steps li::before, .steps li::after { content: ""; position: absolute; top: 0; left: 0; right: 0; }
 .steps li::before { height: 1px; background: var(--line); }
-.steps li::after { height: 2px; background: var(--gold-dark); transform-origin: left; }
+.steps li::after { height: 1px; background: var(--gold-dark); transform-origin: left; }
 .steps .step-num { font-size: 2.6rem; margin: 0; }
 .steps h3 { font-size: 1.35rem; margin-bottom: .25em; }
 .steps p { margin: 0; color: var(--muted); }
@@ -373,8 +373,6 @@ p { margin: 0 0 1em; }
 .reveal-on .steps li::after { transform: scaleX(0); transition: transform .8s cubic-bezier(.6,0,.3,1) calc(var(--i) * .3s + .2s); }
 .reveal-on .steps.in li::after { transform: scaleX(1); }
 .steps li:nth-child(1) { --i: 0; } .steps li:nth-child(2) { --i: 1; } .steps li:nth-child(3) { --i: 2; } .steps li:nth-child(4) { --i: 3; }
-.steps .step-num { transition: transform .35s ease, color .35s ease; }
-.steps li:hover .step-num { transform: translateX(4px); color: var(--gold); }
 
 /* Testimonial */
 .testimonial { padding: clamp(70px, 9vw, 120px) 0; }
