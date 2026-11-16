@@ -270,8 +270,6 @@ p { margin: 0 0 1em; }
 .service-card { align-items: center; text-align: center; }
 .service-body { align-self: stretch; }
 .service-body p { text-align: left; }
-.service-icon { transition: transform .35s ease; }
-.service-card:hover .service-icon { transform: translateY(-4px) scale(1.06); }
 /* Learn More sits centered above a divider; on hover the label and arrow ease a short way apart.
    The spacers (::before/::after) and the label trade flex-grow so the motion animates smoothly. */
 .service-body .more {
