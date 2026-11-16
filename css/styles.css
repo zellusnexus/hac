@@ -249,7 +249,9 @@ p { margin: 0 0 1em; }
 .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .card-grid.four { grid-template-columns: repeat(4, 1fr); }
 .card-grid.four .service-card { min-height: 400px; }
-.card-grid.four .service-body h3 { font-size: 1.4rem; }
+/* Keep each title on one line: shrink with the card's width, never above 1.4rem */
+.card-grid.four .service-card { container-type: inline-size; padding-left: 1.25rem; padding-right: 1.25rem; }
+.card-grid.four .service-body h3 { font-size: min(1.4rem, calc(100cqi / 11)); white-space: nowrap; }
 .service-card {
   position: relative; display: flex; flex-direction: column;
   min-height: 380px; padding: 2rem 1.8rem 1.8rem;
