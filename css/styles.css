@@ -354,13 +354,14 @@ p { margin: 0 0 1em; }
 .step-num { font-family: var(--serif); font-weight: 700; font-size: 2.4rem; color: var(--gold-dark); line-height: 1; display: block; margin-bottom: .4em; }
 .process-split {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-  grid-template-areas: "intro steps" "cta steps";
-  grid-template-rows: auto 1fr; column-gap: clamp(40px, 7vw, 100px);
+  grid-template-areas: "side steps"; column-gap: clamp(40px, 7vw, 100px);
 }
+/* Left column stays pinned while the steps scroll past (wide screens) */
+.process-side { grid-area: side; position: sticky; top: calc(var(--header-h) + 40px); align-self: start; }
 .process-intro { grid-area: intro; }
 .process-intro p:not(.eyebrow) { color: var(--muted); max-width: 26em; margin: 0; }
 .process-intro p:not(.eyebrow) + p { margin-top: 1em; }
-.process-cta { grid-area: cta; justify-self: start; align-self: start; margin-top: 1.8em; }
+.process-cta { grid-area: cta; justify-self: start; align-self: start; margin-top: 1.8em; display: inline-block; }
 /* Steps: numbered rows separated by a light rule above each */
 .steps { grid-area: steps; list-style: none; padding: 0; margin: 0; }
 .steps > li { position: relative; display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding: 1.7rem 0; }
@@ -430,7 +431,8 @@ p { margin: 0 0 1em; }
   .site-header.menu-open { background: var(--charcoal); }
   .card-grid, .card-grid.four { grid-template-columns: repeat(2, 1fr); }
   .card-grid.four .service-card { min-height: 340px; }
-  .process-split { grid-template-columns: 1fr; grid-template-areas: "intro" "cta" "steps"; grid-template-rows: none; }
+  .process-split { grid-template-columns: 1fr; grid-template-areas: "side" "steps"; }
+  .process-side { position: static; }
   .process-intro p:not(.eyebrow) { max-width: none; }
   .process-cta { margin: 1.6em 0 2.4em; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -451,6 +453,7 @@ p { margin: 0 0 1em; }
   .project-grid { grid-template-columns: 1fr; grid-template-rows: none; }
   .project, .project.large { grid-row: auto; min-height: 260px; }
   .process-split { grid-template-areas: "intro" "steps" "cta"; }
+  .process-side { display: contents; }
   .process-intro { margin-bottom: 2em; }
   .process-cta { margin: 2em 0 0; justify-self: stretch; text-align: center; }
   .steps > li { grid-template-columns: 56px 1fr; padding: 1.3rem 0; }
