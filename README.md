@@ -26,10 +26,10 @@ especially the history timeline, industries served, FAQ answers, timelines, hour
 - **Logo:** loaded from Uploadcare (header, footer, favicon). To self-host, save it as `assets/logo.png` and update the three URLs in `index.html`. The artwork is white-on-transparent, so keep it on dark backgrounds.
 - **Media:** add files to `assets/` and they'll be picked up automatically:
   - `hero.mp4` (looping, muted drone/site clip) and `hero.jpg` (poster/fallback)
-  - `serve-commercial.jpg`, `serve-residential.jpg`, `serve-architects.jpg`,
-    `serve-builders.jpg` (the four "Who We Serve" cards)
   - `about.jpg`, `project-1.jpg`, `project-2.jpg`, `project-3.jpg`
   Until then, tinted gradients show in their place.
+- **Who We Serve cards** (home page and `who-we-serve.html`) use portfolio photos from Uploadcare:
+  `commercial-1`, `kitchen-1`, `built-ins-1` and `mud-benches-1`. Swap the UUIDs in each card's `--img` to change them.
 - **Portfolio photos:** the Residential, Commercial and Builder galleries are generated from
   `data/portfolio-images.txt` (one `<uploadcare-uuid> <filename>` per line). The filename prefix
   (`kitchen-`, `bar-`, `commercial-`…) picks the page and room group; see `GROUPS` in
