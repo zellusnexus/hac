@@ -431,6 +431,7 @@ p { margin: 0 0 1em; }
   .card-grid, .card-grid.four { grid-template-columns: repeat(2, 1fr); }
   .card-grid.four .service-card { min-height: 340px; }
   .process-split { grid-template-columns: 1fr; grid-template-areas: "intro" "cta" "steps"; grid-template-rows: none; }
+  .process-intro p:not(.eyebrow) { max-width: none; }
   .process-cta { margin: 1.6em 0 2.4em; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
