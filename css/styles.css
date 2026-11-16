@@ -496,10 +496,11 @@ p { margin: 0 0 1em; }
 .page-hero h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2.2rem, 4.4vw, 3.4rem); color: var(--white); max-width: 860px; margin-bottom: .35em; }
 .page-hero .eyebrow { color: var(--gold-light); }
 .page-hero .sub { max-width: 700px; font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: rgba(255,255,255,.9); margin: 0; }
-.breadcrumb { list-style: none; margin: 0 0 1.4rem; padding: 0; display: flex; flex-wrap: wrap; gap: .5em; font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.7); }
+.breadcrumb { list-style: none; margin: 0 0 1.1rem; padding: 0; display: flex; flex-wrap: wrap; gap: .5em; font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.7); }
 .breadcrumb li + li::before { content: "/"; margin-right: .5em; color: var(--gold); }
 .breadcrumb a { text-decoration: none; }
 .breadcrumb a:hover { color: var(--gold-light); }
+.breadcrumb [aria-current="page"] { color: var(--gold-light); }
 
 .section { padding: clamp(64px, 8vw, 110px) 0; }
 .section.alt { background: var(--sand); }
