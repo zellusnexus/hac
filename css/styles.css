@@ -301,9 +301,10 @@ p { margin: 0 0 1em; }
 /* Each value in its own softly tinted tile: gold serif title with its description beneath */
 .values li { line-height: 1.5; background: rgba(255,255,255,.05); padding: 1em 1.2em; }
 .values strong { display: block; color: var(--gold-light); font-family: var(--serif); font-size: 1.2rem; font-weight: 600; line-height: 1.3; margin-bottom: .25em; }
-.badges { list-style: none; padding: 0; margin: 0 0 2.2em; display: flex; flex-wrap: wrap; gap: 12px; }
-.badges li { border: 1px solid rgba(255,255,255,.22); padding: .7em 1.1em; font-weight: 600; font-size: .9rem; color: var(--white); line-height: 1.35; }
-.badges span { display: block; font-weight: 500; font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-light); }
+/* Credentials: a short italic line under the Start Your Project button */
+.split-copy .btn { margin-top: .4em; }
+.credentials { margin: 1.3em 0 0; font-family: var(--serif); font-style: italic; font-size: 1.05rem; line-height: 1.55; color: #cfc5b4; max-width: 34em; }
+.credentials strong { font-style: normal; font-weight: 600; color: var(--gold-light); white-space: nowrap; }
 
 /* Projects */
 .project-grid { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 280px 280px; gap: 24px; }
