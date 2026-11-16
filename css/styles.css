@@ -354,12 +354,20 @@ p { margin: 0 0 1em; }
 .step-num { font-family: var(--serif); font-weight: 700; font-size: 2.4rem; color: var(--gold-dark); line-height: 1; display: block; margin-bottom: .4em; }
 .process-split {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-  grid-template-areas: "intro steps" "cta steps";
-  grid-template-rows: auto 1fr; column-gap: clamp(40px, 7vw, 100px);
+  grid-template-areas: "intro steps" "cta steps" "more steps";
+  grid-template-rows: auto auto 1fr; column-gap: clamp(40px, 7vw, 100px);
 }
 .process-intro { grid-area: intro; }
 .process-intro p:not(.eyebrow) { color: var(--muted); max-width: 26em; margin: 0; }
 .process-cta { grid-area: cta; justify-self: start; align-self: start; margin-top: 1.8em; }
+/* Typical timeline under the intro */
+.process-more { grid-area: more; margin-top: 3rem; padding: 1.8rem 2rem; background: var(--white); max-width: 26rem; align-self: start; }
+.process-more-title { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-dark); margin: 0 0 1rem; }
+.proc-time { margin: 0; display: grid; gap: .9rem; }
+.proc-time div { display: grid; grid-template-columns: 7.5rem 1fr; align-items: baseline; gap: 1rem; }
+.proc-time dt { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--charcoal-deep); }
+.proc-time dd { margin: 0; color: var(--muted); }
+.proc-time-note { font-size: .9rem; color: var(--muted); margin: 1.2rem 0 1rem; }
 /* Steps: numbered rows separated by a light rule above each */
 .steps { grid-area: steps; list-style: none; padding: 0; margin: 0; }
 .steps li { position: relative; display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding: 1.7rem 0; }
@@ -429,7 +437,8 @@ p { margin: 0 0 1em; }
   .site-header.menu-open { background: var(--charcoal); }
   .card-grid, .card-grid.four { grid-template-columns: repeat(2, 1fr); }
   .card-grid.four .service-card { min-height: 340px; }
-  .process-split { grid-template-columns: 1fr; grid-template-areas: "intro" "cta" "steps"; }
+  .process-split { grid-template-columns: 1fr; grid-template-areas: "intro" "cta" "steps" "more"; grid-template-rows: none; }
+  .process-more { max-width: none; margin-top: 2.4rem; }
   .process-cta { margin: 1.6em 0 2.4em; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -448,7 +457,10 @@ p { margin: 0 0 1em; }
   .split-media { min-height: 280px; }
   .project-grid { grid-template-columns: 1fr; grid-template-rows: none; }
   .project, .project.large { grid-row: auto; min-height: 260px; }
-  .process-split { grid-template-areas: "intro" "steps" "cta"; }
+  .process-split { grid-template-areas: "intro" "steps" "more" "cta"; }
+  .process-more { padding: 1.5rem 1.4rem; }
+  .proc-time div { grid-template-columns: 6.5rem 1fr; }
+  .proc-time dt { font-size: 1.15rem; }
   .process-intro { margin-bottom: 2em; }
   .process-cta { margin: 2em 0 0; justify-self: stretch; text-align: center; }
   .steps li { grid-template-columns: 56px 1fr; padding: 1.3rem 0; }
