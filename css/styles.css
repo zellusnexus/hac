@@ -265,7 +265,7 @@ p { margin: 0 0 1em; }
   backdrop-filter: blur(.35px);
   transition: background .3s;
 }
-.service-card:hover::before { background: rgba(42,29,20,.82); }
+.service-card:hover::before { background: rgba(42,29,20,.88); }
 .service-body { padding: 1.8rem; text-shadow: 0 1px 10px rgba(0,0,0,.45); }
 .service-body h3 { color: var(--white); font-family: var(--serif); font-size: 1.55rem; margin-bottom: .3em; }
 .service-body p { margin: 0 0 .8em; opacity: .9; }
