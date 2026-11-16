@@ -270,7 +270,7 @@ p { margin: 0 0 1em; }
 .service-body p { text-align: left; }
 .service-icon { transition: transform .35s ease; }
 .service-card:hover .service-icon { transform: translateY(-4px) scale(1.06); }
-/* Learn More sits centered above a divider; on hover the label and arrow pull apart to the box edges.
+/* Learn More sits centered above a divider; on hover the label and arrow ease a short way apart.
    The spacers (::before/::after) and the label trade flex-grow so the motion animates smoothly. */
 .service-body .more {
   margin-top: auto; display: flex; align-items: center;
@@ -279,8 +279,7 @@ p { margin: 0 0 1em; }
 .more::before, .more::after { content: ""; flex: 1 1 0; transition: flex-grow .4s ease; }
 .more .lbl { flex: 0 1 auto; text-align: left; transition: flex-grow .4s ease; }
 .more .arr { margin-left: .45em; transition: transform .4s ease; }
-.service-card:hover .more::before, .service-card:hover .more::after { flex-grow: 0; }
-.service-card:hover .more .lbl { flex-grow: 1; }
+.service-card:hover .more .lbl { flex-grow: .9; }
 .service-card:hover .more .arr { transform: scale(1.3); }
 
 /* Split / about */
