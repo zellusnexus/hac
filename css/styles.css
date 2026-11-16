@@ -176,9 +176,16 @@ p { margin: 0 0 1em; }
   text-decoration: none;
   white-space: nowrap;
   padding: .85em 1.6em;
-  transition: background .2s;
+  transition: background .3s, color .3s, box-shadow .3s;
 }
-.header-phone:hover { background: var(--gold-light); color: var(--charcoal-deep); }
+/* Translucent while the header is transparent over the hero; solid once it gets a background. */
+.site-header:not(.is-stuck) .header-phone {
+  background: rgba(212, 166, 42, .22);
+  color: var(--white);
+  box-shadow: inset 0 0 0 1.5px var(--gold);
+}
+.header-phone:hover,
+.site-header:not(.is-stuck) .header-phone:hover { background: var(--gold-light); color: var(--charcoal-deep); box-shadow: none; }
 
 .nav-toggle { display: none; background: none; border: 0; width: 40px; height: 40px; padding: 8px; cursor: pointer; margin-left: auto; }
 .nav-toggle span { display: block; height: 2px; background: var(--white); margin: 5px 0; transition: transform .25s, opacity .25s; }
