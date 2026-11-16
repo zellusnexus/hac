@@ -252,6 +252,9 @@ p { margin: 0 0 1em; }
 /* Keep each title on one line: shrink with the card's width, never above 1.4rem */
 .card-grid.four .service-card { container-type: inline-size; padding-left: 1.25rem; padding-right: 1.25rem; }
 .card-grid.four .service-body h3 { font-size: min(1.4rem, calc(100cqi / 11)); white-space: nowrap; }
+/* Who We Serve: 4 across on desktop, 2x2 on tablets (incl. landscape iPads), 1 column on phones */
+@media (max-width: 1200px) { .card-grid.four { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px)  { .card-grid.four { grid-template-columns: 1fr; } }
 .service-card {
   position: relative; display: flex; flex-direction: column;
   min-height: 380px; padding: 2rem 1.8rem 1.8rem;
