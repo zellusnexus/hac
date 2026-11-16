@@ -164,8 +164,21 @@ p { margin: 0 0 1em; }
 .has-menu.open .dropdown { opacity: 1; visibility: visible; transform: none; }
 .has-menu:hover .chev, .has-menu.open .chev { transform: rotate(180deg); }
 
-.header-phone { color: var(--white); text-decoration: none; font-weight: 600; white-space: nowrap; }
-.header-phone:hover { color: var(--gold-light); }
+.header-phone {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--charcoal-deep);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: .85rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: .85em 1.6em;
+  transition: background .2s;
+}
+.header-phone:hover { background: var(--gold-light); color: var(--charcoal-deep); }
 
 .nav-toggle { display: none; background: none; border: 0; width: 40px; height: 40px; padding: 8px; cursor: pointer; margin-left: auto; }
 .nav-toggle span { display: block; height: 2px; background: var(--white); margin: 5px 0; transition: transform .25s, opacity .25s; }
