@@ -113,8 +113,8 @@ p { margin: 0 0 1em; }
   background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0));
   transition: background .3s, box-shadow .3s;
 }
+.site-header.is-pinned { position: fixed; top: 0; }
 .site-header.is-stuck {
-  position: fixed; top: 0;
   background: var(--charcoal);
   box-shadow: 0 2px 18px rgba(0,0,0,.18);
 }
@@ -178,9 +178,9 @@ p { margin: 0 0 1em; }
   padding: .85em 1.6em;
   transition: background .3s, color .3s;
 }
-/* Translucent while the header is transparent over the hero; solid once it gets a background. */
+/* Plain text while the header is transparent over the hero; gold button once it gets a background. */
 .site-header:not(.is-stuck) .header-phone {
-  background: rgba(212, 166, 42, .22);
+  background: transparent;
   color: var(--white);
 }
 .header-phone:hover,
