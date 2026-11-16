@@ -263,7 +263,7 @@ p { margin: 0 0 1em; }
 .service-card:hover { background: var(--brown); border-top-color: var(--gold); transform: translateY(-4px); }
 .service-icon { width: 52px; height: 52px; color: var(--gold); margin-bottom: 1.6rem; flex: none; }
 .service-body { display: flex; flex-direction: column; flex: 1; }
-.service-body h3 { color: var(--white); font-family: var(--serif); font-size: 1.55rem; margin-bottom: .85rem; }
+.service-body h3 { color: var(--white); font-family: var(--serif); font-size: 1.55rem; margin-bottom: 1.5rem; }
 .service-body p { margin: 0 0 .8em; opacity: .9; }
 .more { font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-light); }
 /* Centered icon + heading, left-aligned description */
