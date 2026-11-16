@@ -29,24 +29,12 @@
     if (e.target.tagName === 'A') setMenu(false);
   });
 
-  // Desktop dropdowns: click/keyboard support in addition to hover.
-  document.querySelectorAll('.has-menu > button').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var li = btn.parentElement;
-      var open = !li.classList.contains('open');
-      document.querySelectorAll('.has-menu.open').forEach(function (o) {
-        o.classList.remove('open');
-        o.querySelector('button').setAttribute('aria-expanded', 'false');
-      });
-      li.classList.toggle('open', open);
-      btn.setAttribute('aria-expanded', String(open));
-    });
-  });
-  // Hovering a different top-level item closes any menu opened by a click,
-  // and moving the mouse off an open menu closes it.
+  // Desktop dropdowns open on hover, or on keyboard focus (CSS :focus-visible).
+  // Each top-level label is also a link to that section's main page.
+  // Hovering another top-level item or leaving a menu drops any lingering focus
+  // so a menu never stays stuck open.
   function closeMenu(o) {
     o.classList.remove('open');
-    o.querySelector('button').setAttribute('aria-expanded', 'false');
     if (o.contains(document.activeElement)) document.activeElement.blur();
   }
   document.querySelectorAll('.main-nav > ul > li').forEach(function (li) {
@@ -57,15 +45,7 @@
     });
   });
   document.querySelectorAll('.has-menu').forEach(function (li) {
-    li.addEventListener('mouseleave', function () { if (li.classList.contains('open')) closeMenu(li); });
-  });
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('.has-menu')) {
-      document.querySelectorAll('.has-menu.open').forEach(function (o) {
-        o.classList.remove('open');
-        o.querySelector('button').setAttribute('aria-expanded', 'false');
-      });
-    }
+    li.addEventListener('mouseleave', function () { closeMenu(li); });
   });
 
   // Portfolio lightbox: click a photo to view it full size, arrows/swipe to browse.
