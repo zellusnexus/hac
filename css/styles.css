@@ -261,8 +261,8 @@ p { margin: 0 0 1em; }
   content: ""; position: absolute; inset: 0; z-index: -1;
   /* Even dim + light blur over the whole photo: still recognizable, text stays readable */
   background: rgba(42,29,20,.6);
-  -webkit-backdrop-filter: blur(1.5px);
-  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(.75px);
+  backdrop-filter: blur(.75px);
   transition: background .3s;
 }
 .service-card:hover::before { background: rgba(42,29,20,.72); }
