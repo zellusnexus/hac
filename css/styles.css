@@ -261,10 +261,27 @@ p { margin: 0 0 1em; }
 .service-card:hover { background: var(--brown); border-top-color: var(--gold); transform: translateY(-4px); }
 .service-icon { width: 52px; height: 52px; color: var(--gold); margin-bottom: 1.6rem; flex: none; }
 .service-body { display: flex; flex-direction: column; flex: 1; }
-.service-body .more { margin-top: auto; }
 .service-body h3 { color: var(--white); font-family: var(--serif); font-size: 1.55rem; margin-bottom: .3em; }
 .service-body p { margin: 0 0 .8em; opacity: .9; }
 .more { font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-light); }
+/* Centered icon + heading, left-aligned description */
+.service-card { align-items: center; text-align: center; }
+.service-body { align-self: stretch; }
+.service-body p { text-align: left; }
+.service-icon { transition: transform .35s ease; }
+.service-card:hover .service-icon { transform: translateY(-4px) scale(1.06); }
+/* Learn More sits centered above a divider; on hover the label and arrow pull apart to the box edges.
+   The spacers (::before/::after) and the label trade flex-grow so the motion animates smoothly. */
+.service-body .more {
+  margin-top: auto; display: flex; align-items: center;
+  padding-top: 1em; border-top: 1px solid rgba(255,255,255,.12);
+}
+.more::before, .more::after { content: ""; flex: 1 1 0; transition: flex-grow .4s ease; }
+.more .lbl { flex: 0 1 auto; text-align: left; transition: flex-grow .4s ease; }
+.more .arr { margin-left: .45em; transition: transform .4s ease; }
+.service-card:hover .more::before, .service-card:hover .more::after { flex-grow: 0; }
+.service-card:hover .more .lbl { flex-grow: 1; }
+.service-card:hover .more .arr { transform: scale(1.3); }
 
 /* Split / about */
 .split { display: grid; grid-template-columns: 1fr 1fr; background: var(--brown-deep); color: #e4dccf; }
