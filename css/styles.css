@@ -351,20 +351,30 @@ p { margin: 0 0 1em; }
 
 /* Process */
 .process { background: var(--sand); }
-.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; counter-reset: s; }
-.steps li { position: relative; padding-top: calc(1.4rem + 3px); }
-/* Timeline line: a faint track with a gold line that draws across, step by step, on scroll */
-.steps li::before, .steps li::after { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-.steps li::before { background: rgba(61,43,31,.15); }
-.steps li::after { background: var(--gold-dark); transform-origin: left; }
-.reveal-on .steps[data-reveal] > li { transition-delay: calc(var(--i) * .35s); }
-.reveal-on .steps li::after { transform: scaleX(0); transition: transform .7s cubic-bezier(.6,0,.3,1) calc(var(--i) * .35s + .25s); }
+.step-num { font-family: var(--serif); font-weight: 700; font-size: 2.4rem; color: var(--gold-dark); line-height: 1; display: block; margin-bottom: .4em; }
+.process-split {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  grid-template-areas: "intro steps" "cta steps";
+  grid-template-rows: auto 1fr; column-gap: clamp(40px, 7vw, 100px);
+}
+.process-intro { grid-area: intro; }
+.process-intro p:not(.eyebrow) { color: var(--muted); max-width: 26em; margin: 0; }
+.process-cta { grid-area: cta; justify-self: start; align-self: start; margin-top: 1.8em; }
+/* Steps: numbered rows; on scroll each row fades up and a gold rule draws across its top */
+.steps { grid-area: steps; list-style: none; padding: 0; margin: 0; border-bottom: 1px solid var(--line); }
+.steps li { position: relative; display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding: 1.7rem 0; }
+.steps li::before, .steps li::after { content: ""; position: absolute; top: 0; left: 0; right: 0; }
+.steps li::before { height: 1px; background: var(--line); }
+.steps li::after { height: 2px; background: var(--gold-dark); transform-origin: left; }
+.steps .step-num { font-size: 2.6rem; margin: 0; }
+.steps h3 { font-size: 1.35rem; margin-bottom: .25em; }
+.steps p { margin: 0; color: var(--muted); }
+.reveal-on .steps[data-reveal] > li { transition-delay: calc(var(--i) * .3s); }
+.reveal-on .steps li::after { transform: scaleX(0); transition: transform .8s cubic-bezier(.6,0,.3,1) calc(var(--i) * .3s + .2s); }
 .reveal-on .steps.in li::after { transform: scaleX(1); }
 .steps li:nth-child(1) { --i: 0; } .steps li:nth-child(2) { --i: 1; } .steps li:nth-child(3) { --i: 2; } .steps li:nth-child(4) { --i: 3; }
-.step-num { transition: transform .35s ease, color .35s ease; }
-.steps li:hover .step-num { transform: translateY(-4px); color: var(--gold); }
-.step-num { font-family: var(--serif); font-weight: 700; font-size: 2.4rem; color: var(--gold-dark); line-height: 1; display: block; margin-bottom: .4em; }
-.steps p { margin: 0; color: var(--muted); }
+.steps .step-num { transition: transform .35s ease, color .35s ease; }
+.steps li:hover .step-num { transform: translateX(4px); color: var(--gold); }
 
 /* Testimonial */
 .testimonial { padding: clamp(70px, 9vw, 120px) 0; }
@@ -427,7 +437,8 @@ p { margin: 0 0 1em; }
   .site-header.menu-open { background: var(--charcoal); }
   .card-grid, .card-grid.four { grid-template-columns: repeat(2, 1fr); }
   .card-grid.four .service-card { min-height: 340px; }
-  .steps { grid-template-columns: repeat(2, 1fr); }
+  .process-split { grid-template-columns: 1fr; grid-template-areas: "intro" "cta" "steps"; }
+  .process-cta { margin: 1.6em 0 2.4em; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 760px) {
@@ -445,7 +456,12 @@ p { margin: 0 0 1em; }
   .split-media { min-height: 280px; }
   .project-grid { grid-template-columns: 1fr; grid-template-rows: none; }
   .project, .project.large { grid-row: auto; min-height: 260px; }
-  .steps { grid-template-columns: 1fr; }
+  .process-split { grid-template-areas: "intro" "steps" "cta"; }
+  .process-intro { margin-bottom: 2em; }
+  .process-cta { margin: 2em 0 0; justify-self: stretch; text-align: center; }
+  .steps li { grid-template-columns: 56px 1fr; padding: 1.3rem 0; }
+  .steps .step-num { font-size: 2rem; }
+  .steps h3 { font-size: 1.2rem; }
   .cta-inner { grid-template-columns: 1fr; }
   .contact-form { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
