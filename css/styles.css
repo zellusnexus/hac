@@ -154,7 +154,7 @@ p { margin: 0 0 1em; }
 .dropdown a { display: block; padding: .55rem 1.2rem; color: var(--ink); text-decoration: none; font-size: .98rem; }
 .dropdown a:hover { background: var(--sand); color: var(--gold-dark); }
 .has-menu:hover .dropdown,
-.has-menu:focus-within .dropdown,
+.has-menu:has(:focus-visible) .dropdown,
 .has-menu.open .dropdown { opacity: 1; visibility: visible; transform: none; }
 .has-menu:hover .chev, .has-menu.open .chev { transform: rotate(180deg); }
 

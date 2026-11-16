@@ -42,6 +42,23 @@
       btn.setAttribute('aria-expanded', String(open));
     });
   });
+  // Hovering a different top-level item closes any menu opened by a click,
+  // and moving the mouse off an open menu closes it.
+  function closeMenu(o) {
+    o.classList.remove('open');
+    o.querySelector('button').setAttribute('aria-expanded', 'false');
+    if (o.contains(document.activeElement)) document.activeElement.blur();
+  }
+  document.querySelectorAll('.main-nav > ul > li').forEach(function (li) {
+    li.addEventListener('mouseenter', function () {
+      document.querySelectorAll('.has-menu').forEach(function (o) {
+        if (o !== li && (o.classList.contains('open') || o.contains(document.activeElement))) closeMenu(o);
+      });
+    });
+  });
+  document.querySelectorAll('.has-menu').forEach(function (li) {
+    li.addEventListener('mouseleave', function () { if (li.classList.contains('open')) closeMenu(li); });
+  });
   document.addEventListener('click', function (e) {
     if (!e.target.closest('.has-menu')) {
       document.querySelectorAll('.has-menu.open').forEach(function (o) {
