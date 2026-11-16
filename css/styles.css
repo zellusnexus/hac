@@ -140,6 +140,16 @@ p { margin: 0 0 1em; }
 }
 .main-nav > ul > li > a:hover,
 .main-nav > ul > li > button:hover { color: var(--gold-light); }
+/* Gold underline slides in under every top-level label on hover, so labels with a
+   dropdown read as clickable links too (the chevron signals the extra menu) */
+.main-nav > ul > li > a { position: relative; }
+.main-nav > ul > li > a::after {
+  content: ""; position: absolute; left: 0; bottom: .15em; height: 1.5px; background: var(--gold-light);
+  width: 100%; transform: scaleX(0); transform-origin: left; transition: transform .25s ease;
+}
+.main-nav > ul > li.has-menu > a::after { width: calc(100% - 12px - .35em); }
+.main-nav > ul > li > a:hover::after, .main-nav > ul > li > a:focus-visible::after,
+.main-nav > ul > li > a[aria-current="page"]::after { transform: scaleX(1); }
 .chev { width: 12px; height: 8px; transition: transform .2s; }
 .dropdown {
   list-style: none; margin: 0; padding: .6rem 0;
