@@ -4,10 +4,13 @@
   var toggle = document.querySelector('.nav-toggle');
   var mobileNav = document.getElementById('mobile-nav');
 
-  // Header sits transparently over the hero, then sticks with a solid navy background on scroll.
+  // Header sits transparently over the hero. As soon as the page scrolls it turns solid,
+  // and it pins to the top the moment it reaches the top of the viewport (after the announcement bar).
   function onScroll() {
-    var threshold = (announce ? announce.offsetHeight : 0) + 80;
-    header.classList.toggle('is-stuck', window.scrollY > threshold);
+    var y = window.scrollY;
+    var pinAt = announce ? announce.offsetHeight : 0;
+    header.classList.toggle('is-stuck', y > 0);
+    header.classList.toggle('is-pinned', y >= pinAt);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
