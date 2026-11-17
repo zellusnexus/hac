@@ -284,6 +284,9 @@ p { margin: 0 0 1em; }
   .card-grid.four .service-card { padding: 1.6rem max(1.1rem, 9%) 1.4rem; }
 }
 @media (max-width: 560px) {
+  /* Single column: wide cards, so Learn More only eases a short way apart */
+  .card-grid.four .service-card:hover .more::before, .card-grid.four .service-card:hover .more::after { flex-grow: 1; }
+  .card-grid.four .service-card:hover .more .lbl { flex-grow: .9; }
   .card-grid.four { grid-template-columns: 1fr; gap: 24px; }
   .card-grid.four .service-card { padding: 2rem max(1.5rem, 10%) 1.8rem; }
 }
