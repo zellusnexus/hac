@@ -315,7 +315,7 @@ p { margin: 0 0 1em; }
   content: ""; position: absolute; top: -3%; bottom: -3%; left: 0; width: 108%;
   background: var(--img) center / cover;
   /* Sideways pan plus a gentle upward drift as you scroll down */
-  transform: translate3d(calc(var(--pan, .5) * -7.4%), calc((var(--pan, .5) - .5) * -5.6%), 0);
+  transform: translate3d(calc(var(--pan, .5) * -7.4%), calc((var(--pan, .5) - .5) * -5.6%), 0) scale(var(--zoom, 1));
   will-change: transform;
 }
 .split-copy { padding: clamp(50px, 7vw, 100px) clamp(24px, 6vw, 90px); align-self: center; }
@@ -472,7 +472,7 @@ p { margin: 0 0 1em; }
   .card-grid, .card-grid.four { grid-template-columns: 1fr; }
   .service-card, .card-grid.four .service-card { min-height: 0; }
   .split { grid-template-columns: 1fr; }
-  .split-media { min-height: 280px; }
+  .split-media { min-height: 280px; --zoom: 1.35; } /* stacked above the text: zoom in on the photo */
   .project-grid { grid-template-columns: 1fr; grid-template-rows: none; }
   .project, .project.large { grid-row: auto; min-height: 260px; }
   .process-split { grid-template-areas: "intro" "steps" "cta"; }
