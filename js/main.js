@@ -126,6 +126,27 @@
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
+  // Pan photos marked data-pan sideways as their section scrolls through the viewport.
+  var panEls = Array.prototype.slice.call(document.querySelectorAll('[data-pan]'));
+  if (panEls.length && !reduce) {
+    var ticking = false;
+    var updatePan = function () {
+      var vh = window.innerHeight;
+      panEls.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        var p = (vh - r.top) / (vh + r.height);
+        el.style.setProperty('--pan', Math.min(1, Math.max(0, p)).toFixed(4));
+      });
+      ticking = false;
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(updatePan); }
+    }, { passive: true });
+    window.addEventListener('resize', updatePan);
+    updatePan();
+  }
+
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 })();
