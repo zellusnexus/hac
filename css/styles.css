@@ -641,20 +641,19 @@ main > section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 
 /* Gallery overview: one band per category, description + rooms beside its cover photos */
 .gal-cat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: clamp(36px, 6vw, 80px); align-items: center; }
+.gal-cat.reverse { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
 .gal-cat.reverse .gal-cat-text { order: 2; }
 .gal-cat-text p:not(.eyebrow) { color: var(--muted); }
-.gal-rooms { list-style: none; margin: 1.6rem 0 2rem; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.6rem; }
-.gal-rooms a { display: flex; justify-content: space-between; gap: .6rem; padding: .55rem 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); font-weight: 500; transition: color .2s; }
-.gal-rooms a:hover { color: var(--gold-dark); }
-.gal-rooms span { color: var(--muted); font-weight: 400; font-size: .9rem; }
+.gal-cat-text .btn { margin-top: 1.4rem; }
 .gal-cat-tiles .gallery { grid-template-columns: 1fr 1fr; gap: 16px; }
 .gal-cat-tiles .gallery .project { min-height: 210px; }
 .gal-cat-tiles .gallery .project.wide { grid-column: span 2; min-height: 280px; }
+.gal-cat-tiles .gallery .project.solo { min-height: 440px; }
 @media (max-width: 900px) {
-  .gal-cat { grid-template-columns: 1fr; }
+  .gal-cat, .gal-cat.reverse { grid-template-columns: 1fr; }
   .gal-cat.reverse .gal-cat-text { order: 0; }
 }
-@media (max-width: 480px) { .gal-rooms { grid-template-columns: 1fr; } .gal-cat-tiles .gallery .project { min-height: 170px; } }
+@media (max-width: 480px) { .gal-cat-tiles .gallery .project { min-height: 170px; } .gal-cat-tiles .gallery .project.solo { min-height: 300px; } }
 .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .gallery .project { min-height: 300px; }
 .gallery .project.wide { grid-column: span 2; }

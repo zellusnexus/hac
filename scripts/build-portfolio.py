@@ -103,23 +103,16 @@ def build_overview(photos):
     text = OVERVIEW.read_text()
     for cat, groups in GROUPS.items():
         label = LABEL[cat]
-        picks = [(gid, h, photos[p][0]) for gid, h, p in groups][:3]
-        if len(picks) < 3:  # single-group category: take its first three photos
-            gid, h, p = groups[0]
-            picks = [(gid, h, item) for item in photos[p][:3]]
+        picks = [(gid, h, photos[p][0]) for gid, h, p in groups][:3]  # one cover photo per room (a single-room category gets one large photo)
         tiles = []
         for i, (gid, heading, (num, uuid, ext)) in enumerate(picks):
-            cls = "project wide" if i == 0 else "project"
+            cls = "project wide" + (" solo" if len(picks) == 1 else "") if i == 0 else "project"
             tiles.append(
                 f'<a class="{cls}" href="gallery-{cat}.html#{gid}" style="--img:url({url(uuid, ext, "1200x900")})">'
                 f'<figcaption><span>{label}</span>{heading}</figcaption></a>'
             )
         text = replace_marked(text, f"overview-{cat}", '<div class="gallery">' + "".join(tiles) + "</div>")
-        # room list with photo counts, plus a button to the full category page
-        total = sum(len(photos[p]) for _, _, p in groups)
-        rooms = "".join(f'<li><a href="gallery-{cat}.html#{gid}">{h}<span>{len(photos[p])}</span></a></li>' for gid, h, p in groups)
-        text = replace_marked(text, f"rooms-{cat}",
-            f'<ul class="gal-rooms">{rooms}</ul><a href="gallery-{cat}.html" class="btn btn-primary">See all {total} photos</a>')
+        text = replace_marked(text, f"rooms-{cat}", f'<a href="gallery-{cat}.html" class="btn btn-primary">See all photos</a>')
     OVERVIEW.write_text(text)
 
 
