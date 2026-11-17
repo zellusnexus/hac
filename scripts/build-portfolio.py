@@ -85,15 +85,21 @@ def build_category_pages(photos):
     for cat, groups in GROUPS.items():
         label = LABEL[cat]
         parts = []
-        if len(groups) > 1:
-            links = "".join(f'<a href="#{gid}">{h} <span>{len(photos[p])}</span></a>' for gid, h, p in groups)
-            parts.append(f'<nav class="photo-jump" aria-label="Jump to room">{links}</nav>')
+        preview = len(groups) > 1  # several rooms: each shows a preview row of photos with a "Show all" button
         for gid, heading, prefix in groups:
             items = photos[prefix]
-            parts.append(
-                f'<div class="gallery-group" id="{gid}"><h3 class="gallery-room">{heading}</h3>'
-                f'{photo_grid(items, label, heading)}</div>'
-            )
+            grid = photo_grid(items, label, heading)
+            if preview:
+                n = len(items)
+                more = (f'<button class="fold-toggle" type="button" aria-expanded="false" data-more="Show all {n} photos" '
+                        f'data-less="Show fewer">Show all {n} photos</button>') if n > 4 else ""
+                parts.append(
+                    f'<div class="gallery-group gallery-fold" id="{gid}">'
+                    f'<div class="fold-head"><h3 class="gallery-room">{heading}</h3><span class="fold-count">{n} photo{"s" if n != 1 else ""}</span></div>'
+                    f'{grid}{more}</div>'
+                )
+            else:
+                parts.append(f'<div class="gallery-group" id="{gid}"><h3 class="gallery-room">{heading}</h3>{grid}</div>')
         path = page(cat)
         path.write_text(replace_marked(path.read_text(), cat, "".join(parts)))
 
