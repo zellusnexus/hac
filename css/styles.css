@@ -645,15 +645,15 @@ main > section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .gal-cat.reverse .gal-cat-text { order: 2; }
 .gal-cat-text p:not(.eyebrow) { color: var(--muted); }
 .gal-cat-text .btn { margin-top: 1.4rem; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .gal-cat-tiles .gallery { grid-template-columns: 1fr 1fr; gap: 16px; }
 .gal-cat-tiles .gallery .project { min-height: 210px; }
 .gal-cat-tiles .gallery .project.wide { grid-column: span 2; min-height: 280px; }
-.gal-cat-tiles .gallery .project.solo { min-height: 440px; }
 @media (max-width: 900px) {
   .gal-cat, .gal-cat.reverse { grid-template-columns: 1fr; }
   .gal-cat.reverse .gal-cat-text { order: 0; }
 }
-@media (max-width: 480px) { .gal-cat-tiles .gallery .project { min-height: 170px; } .gal-cat-tiles .gallery .project.solo { min-height: 300px; } }
+@media (max-width: 480px) { .gal-cat-tiles .gallery .project { min-height: 170px; } }
 .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .gallery .project { min-height: 300px; }
 .gallery .project.wide { grid-column: span 2; }
