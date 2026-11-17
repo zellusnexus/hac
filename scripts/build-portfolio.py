@@ -115,6 +115,11 @@ def build_overview(photos):
                 f'<figcaption><span>{label}</span>{heading}</figcaption></a>'
             )
         text = replace_marked(text, f"overview-{cat}", '<div class="gallery">' + "".join(tiles) + "</div>")
+        # room list with photo counts, plus a button to the full category page
+        total = sum(len(photos[p]) for _, _, p in groups)
+        rooms = "".join(f'<li><a href="gallery-{cat}.html#{gid}">{h}<span>{len(photos[p])}</span></a></li>' for gid, h, p in groups)
+        text = replace_marked(text, f"rooms-{cat}",
+            f'<ul class="gal-rooms">{rooms}</ul><a href="gallery-{cat}.html" class="btn btn-primary">See all {total} photos</a>')
     OVERVIEW.write_text(text)
 
 
