@@ -314,7 +314,8 @@ p { margin: 0 0 1em; }
 .more::before, .more::after { content: ""; flex: 1 1 0; transition: flex-grow .4s ease; }
 .more .lbl { flex: 0 1 auto; text-align: left; transition: flex-grow .4s ease; }
 .more .arr { margin-left: .45em; transition: transform .4s ease; }
-.service-card:hover .more .lbl { flex-grow: .9; }
+.service-card:hover .more::before, .service-card:hover .more::after { flex-grow: .08; }
+.service-card:hover .more .lbl { flex-grow: 1; }
 .service-card:hover .more .arr { transform: scale(1.3); }
 
 /* Split / about */
