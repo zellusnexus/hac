@@ -269,10 +269,26 @@ p { margin: 0 0 1em; }
 .card-grid.four .service-card { container-type: inline-size; padding-left: max(1.25rem, 10%); padding-right: max(1.25rem, 10%); }
 .card-grid.four .service-body h3 { font-size: min(1.4rem, calc(100cqi / 11)); white-space: nowrap; }
 /* Who We Serve: 4 across on desktop, 2x2 on tablets (incl. landscape iPads), 1 column on phones */
-/* "two-up" variant (Who We Serve page): 2x2 on wide screens too */
-@media (min-width: 1201px) {
-  .card-grid.four.two-up { grid-template-columns: repeat(2, 1fr); }
-  .card-grid.four.two-up .service-card { padding-left: 14%; padding-right: 14%; min-height: 340px; }
+/* Who We Serve page: audience rows (different from the home page's dark centered boxes) */
+.aud-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.aud-card {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: 1.3rem;
+  background: var(--white); padding: 1.7rem 1.8rem; text-decoration: none; color: inherit;
+  border-left: 3px solid transparent; transition: border-color .25s ease, box-shadow .25s ease;
+}
+.aud-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--sand); color: var(--gold-dark); display: grid; place-items: center; }
+.aud-icon svg { width: 28px; height: 28px; }
+.aud-body h3 { font-family: var(--serif); font-size: 1.3rem; color: var(--ink); margin: .1em 0 .3em; transition: color .25s ease; }
+.aud-body p { margin: 0; color: var(--muted); }
+.aud-arrow { align-self: center; color: var(--gold-dark); font-size: 1.2rem; transition: transform .25s ease; }
+.aud-card:hover, .aud-card:focus-visible { border-left-color: var(--gold); box-shadow: 0 8px 24px rgba(42,29,20,.08); }
+.aud-card:hover h3, .aud-card:focus-visible h3 { color: var(--gold-dark); }
+.aud-card:hover .aud-arrow, .aud-card:focus-visible .aud-arrow { transform: translateX(5px); }
+@media (max-width: 860px) { .aud-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px) {
+  .aud-card { grid-template-columns: auto 1fr; padding: 1.4rem 1.3rem; gap: 1rem; }
+  .aud-arrow { display: none; }
+  .aud-icon { width: 46px; height: 46px; } .aud-icon svg { width: 23px; height: 23px; }
 }
 /* Four-box grids: 4 across on desktop, 2x2 on tablets and wider phones, 1 column only on narrow phones */
 @media (max-width: 1200px) {
