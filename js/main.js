@@ -30,6 +30,12 @@
     if (t) {
       var group = t.closest('.m-group');
       var open = !group.classList.contains('open');
+      // Only one section open at a time: close the others first
+      mobileNav.querySelectorAll('.m-group.open').forEach(function (g) {
+        if (g === group) return;
+        g.classList.remove('open');
+        g.querySelector('.m-toggle').setAttribute('aria-expanded', 'false');
+      });
       group.classList.toggle('open', open);
       t.setAttribute('aria-expanded', String(open));
       return;
