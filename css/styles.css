@@ -128,41 +128,40 @@ p { margin: 0 0 1em; }
 .logo-footer img { height: 96px; }
 
 .main-nav { flex: 1; }
-.main-nav > ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.8rem; }
+.main-nav > ul { list-style: none; margin: 0; padding: 0; display: flex; gap: .6rem; }
 .main-nav > ul > li { position: relative; }
 .main-nav > ul > li > a,
 .main-nav > ul > li > button {
   font: 500 1.05rem var(--sans);
   color: var(--white);
-  background: none; border: 0; padding: .5em 0; cursor: pointer;
-  text-decoration: none;
+  background: none; border: 0; padding: .5em .9em; cursor: pointer;
+  text-decoration: none; border-radius: 2px;
   display: inline-flex; align-items: center; gap: .35em;
+  transition: background .2s, color .2s;
 }
+/* Tab-style hover: the whole label gets a soft fill, so labels read as clickable
+   and the dropdown hangs from the tab */
 .main-nav > ul > li > a:hover,
-.main-nav > ul > li > button:hover { color: var(--gold-light); }
-/* Gold underline slides in under every top-level label on hover, so labels with a
-   dropdown read as clickable links too (the chevron signals the extra menu) */
-.main-nav > ul > li > a { position: relative; }
-.main-nav > ul > li > a::after {
-  content: ""; position: absolute; left: 0; bottom: .15em; height: 1.5px; background: var(--gold-light);
-  width: 100%; transform: scaleX(0); transform-origin: left; transition: transform .25s ease;
-}
-.main-nav > ul > li.has-menu > a::after { width: calc(100% - 12px - .35em); }
-.main-nav > ul > li > a:hover::after, .main-nav > ul > li > a:focus-visible::after,
-.main-nav > ul > li > a[aria-current="page"]::after { transform: scaleX(1); }
+.main-nav > ul > li > button:hover,
+.main-nav > ul > li.has-menu:hover > a { color: var(--gold-light); background: rgba(255,255,255,.1); }
+.main-nav > ul > li > a[aria-current="page"] { background: rgba(232,195,90,.14); }
 .chev { width: 12px; height: 8px; transition: transform .2s; }
 .dropdown {
   list-style: none; margin: 0; padding: .6rem 0;
-  position: absolute; top: 100%; left: -1rem;
+  position: absolute; top: 100%; left: 0;
   min-width: 240px;
-  background: var(--white);
-  box-shadow: 0 12px 30px rgba(0,0,0,.15);
-  border-top: 3px solid var(--gold);
+  /* Charcoal to match the nav; slightly see-through with blur so it sits softly over white content */
+  background: rgba(43,43,43,.94);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 16px 36px rgba(0,0,0,.14);
+  border-top: 2px solid var(--gold);
   opacity: 0; visibility: hidden; transform: translateY(6px);
   transition: opacity .2s, transform .2s, visibility .2s;
 }
-.dropdown a { display: block; padding: .55rem 1.2rem; color: var(--ink); text-decoration: none; font-size: .98rem; }
-.dropdown a:hover { background: var(--sand); color: var(--gold-dark); }
+.dropdown a { display: block; padding: .55rem 1.2rem; color: #e9e4dc; text-decoration: none; font-size: .98rem; transition: background .15s, color .15s; }
+.dropdown a:hover { background: rgba(255,255,255,.07); color: var(--gold-light); }
+.main-nav > ul > li.has-menu:hover > a { background: rgba(43,43,43,.94); }
 .has-menu:hover .dropdown,
 .has-menu:has(:focus-visible) .dropdown,
 .has-menu.open .dropdown { opacity: 1; visibility: visible; transform: none; }
@@ -480,7 +479,7 @@ p { margin: 0 0 1em; }
 
 /* ===== Inner pages ===== */
 .main-nav a[aria-current="page"], .dropdown a[aria-current="page"], .mobile-nav a[aria-current="page"] { color: var(--gold-light); }
-.dropdown a[aria-current="page"] { color: var(--gold-dark); background: var(--sand); }
+.dropdown a[aria-current="page"] { color: var(--gold-light); background: rgba(232,195,90,.12); }
 
 .page-hero {
   position: relative; isolation: isolate;
