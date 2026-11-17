@@ -662,7 +662,6 @@ main > section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .gallery-group.gallery-fold + .gallery-group.gallery-fold { margin-top: clamp(48px, 6vw, 72px); }
 .fold-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.1rem; }
 .fold-head .gallery-room { margin: 0; }
-.fold-count { color: var(--muted); font-size: .95rem; }
 .gallery-fold:not(.expanded) .photo:nth-child(n+9) { display: none; }   /* desktop: two rows of 4 */
 .fold-toggle {
   display: flex; align-items: center; gap: .55em; margin: 1.3rem auto 0; padding: .35em 0; cursor: pointer;
