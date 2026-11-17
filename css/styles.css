@@ -464,7 +464,8 @@ p { margin: 0 0 1em; }
   .m-toggle .chev { width: 14px; height: 9px; transition: transform .25s ease; }
   .m-group.open .m-toggle { color: var(--gold-light); }
   .m-group.open .m-toggle .chev { transform: rotate(180deg); }
-  .m-sub { list-style: none; margin: 0; padding: 0; max-height: 0; overflow: hidden; background: rgba(0,0,0,.18); visibility: hidden; transition: max-height .3s ease, visibility .3s; }
+  .m-sub { list-style: none; margin: 0; padding: 0; max-height: 0; overflow: hidden; background: rgba(0,0,0,.18); visibility: hidden; transition: max-height .35s cubic-bezier(.4,0,.2,1), visibility .35s; }
+  /* Exact height is set in main.js so opening and closing move in step; 22rem is the no-JS fallback */
   .m-group.open .m-sub { max-height: 22rem; visibility: visible; }
   .m-sub a { display: block; padding: .75rem var(--gutter) .75rem calc(var(--gutter) + 1.1rem); font-size: .95rem; font-weight: 400; color: #d8d1c6; border-top: 1px solid rgba(255,255,255,.05); }
   .mobile-nav .btn { margin: 1rem var(--gutter) 1.4rem; text-align: center; padding: 1em; }
