@@ -127,6 +127,10 @@ p { margin: 0 0 1em; }
 .logo-footer { display: inline-block; }
 .logo-footer img { height: 96px; }
 
+/* One hover/dropdown color for every nav tab: charcoal over the hero,
+   a step lighter than the bar once the header turns solid */
+.site-header { --nav-tab: rgba(43,43,43,.94); }
+.site-header.is-stuck { --nav-tab: #3a3a3a; }
 .main-nav { flex: 1; }
 .main-nav > ul { list-style: none; margin: 0; padding: 0; display: flex; gap: .6rem; }
 .main-nav > ul > li { position: relative; }
@@ -143,7 +147,7 @@ p { margin: 0 0 1em; }
    and the dropdown hangs from the tab */
 .main-nav > ul > li > a:hover,
 .main-nav > ul > li > button:hover,
-.main-nav > ul > li.has-menu:hover > a { color: var(--gold-light); background: rgba(255,255,255,.1); }
+.main-nav > ul > li.has-menu:hover > a { color: var(--gold-light); background: var(--nav-tab); }
 .main-nav > ul > li > a[aria-current="page"] { background: rgba(232,195,90,.14); }
 .chev { width: 12px; height: 8px; transition: transform .2s; }
 .dropdown {
@@ -151,7 +155,7 @@ p { margin: 0 0 1em; }
   position: absolute; top: 100%; left: 0;
   min-width: 240px;
   /* Charcoal to match the nav; slightly see-through with blur so it sits softly over white content */
-  background: rgba(43,43,43,.94);
+  background: var(--nav-tab);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   backdrop-filter: blur(14px) saturate(1.2);
   box-shadow: 0 16px 36px rgba(0,0,0,.14);
@@ -161,7 +165,6 @@ p { margin: 0 0 1em; }
 }
 .dropdown a { display: block; padding: .55rem 1.2rem; color: #e9e4dc; text-decoration: none; font-size: .98rem; transition: background .15s, color .15s; }
 .dropdown a:hover { background: rgba(255,255,255,.07); color: var(--gold-light); }
-.main-nav > ul > li.has-menu:hover > a { background: rgba(43,43,43,.94); }
 .has-menu:hover .dropdown,
 .has-menu:has(:focus-visible) .dropdown,
 .has-menu.open .dropdown { opacity: 1; visibility: visible; transform: none; }
