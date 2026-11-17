@@ -564,7 +564,10 @@ p { margin: 0 0 1em; }
   background: linear-gradient(to bottom, rgba(0,0,0,.5) 0%, rgba(28,28,28,.55) 45%, rgba(28,28,28,.88) 100%);
 }
 .page-hero-inner { width: 100%; padding-top: calc(var(--header-h) + 70px); padding-bottom: clamp(48px, 7vw, 84px); }
-.page-hero h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2.2rem, 4.4vw, 3.4rem); color: var(--white); max-width: 860px; margin-bottom: .35em; }
+.page-hero h1, .page-hero .h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2.2rem, 4.4vw, 3.4rem); color: var(--white); max-width: 860px; margin-bottom: .35em; }
+/* Heroes of merged sections further down a page: no fixed-header offset; jump links land below the sticky header */
+.page-hero[id] { min-height: 380px; scroll-margin-top: calc(var(--header-h) - 1px); }
+.page-hero[id] .page-hero-inner { padding-top: clamp(64px, 8vw, 110px); }
 .page-hero .eyebrow { color: var(--gold-light); }
 .page-hero .sub { max-width: 700px; font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: rgba(255,255,255,.9); margin: 0; }
 .breadcrumb { list-style: none; margin: 0 0 1.1rem; padding: 0; display: flex; flex-wrap: wrap; gap: .5em; font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.7); }
