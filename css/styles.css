@@ -290,15 +290,13 @@ p { margin: 0 0 1em; }
   .aud-arrow { display: none; }
   .aud-icon { width: 46px; height: 46px; } .aud-icon svg { width: 23px; height: 23px; }
 }
-/* Who We Serve page: "advantages" as a split layout with ruled list items (no tiles) */
+/* Who We Serve page: "advantages" — calm 3x2 grid, no rules or tiles, gold titles */
 .section.adv-section { padding-top: clamp(90px, 11vw, 150px); }
-.adv-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: clamp(40px, 6vw, 90px); align-items: center; }
-.adv-head h2 { margin: 0; }
-.adv-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem clamp(28px, 4vw, 56px); }
+.adv-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem clamp(32px, 5vw, 72px); }
 .adv-list .feature { background: none; padding: 0; }
 .adv-list .feature h3 { color: var(--gold-dark); }
-@media (max-width: 1100px) { .adv-split { grid-template-columns: 1fr; } }
-@media (max-width: 860px) { .adv-list { grid-template-columns: 1fr; gap: 1.6rem; } }
+@media (max-width: 960px) { .adv-list { grid-template-columns: 1fr 1fr; gap: 2.4rem 40px; } }
+@media (max-width: 600px) { .adv-list { grid-template-columns: 1fr; gap: 2rem; } }
 /* Four-box grids: 4 across on desktop, 2x2 on tablets and wider phones, 1 column only on narrow phones */
 @media (max-width: 1200px) {
   .card-grid.four { grid-template-columns: repeat(2, 1fr); }
