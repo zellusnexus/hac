@@ -150,6 +150,35 @@
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
+  // Our Process: once the steps have slid in, keep the step nearest the middle of the screen in focus.
+  var stepsList = document.querySelector('[data-steps]');
+  if (stepsList && !reduce && 'IntersectionObserver' in window) {
+    var stepItems = Array.prototype.slice.call(stepsList.children);
+    var markActive = function () {
+      var mid = window.innerHeight / 2, best = null, bestD = Infinity;
+      stepItems.forEach(function (li) {
+        var r = li.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - mid);
+        if (d < bestD) { bestD = d; best = li; }
+      });
+      stepItems.forEach(function (li) { li.classList.toggle('active', li === best); });
+    };
+    var stepsTick = false;
+    var onStepsScroll = function () {
+      if (!stepsTick) { stepsTick = true; requestAnimationFrame(function () { markActive(); stepsTick = false; }); }
+    };
+    new IntersectionObserver(function (entries, obs) {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      // let the slide-in finish before softening the other steps
+      setTimeout(function () {
+        markActive();
+        stepsList.classList.add('settled');
+        window.addEventListener('scroll', onStepsScroll, { passive: true });
+        window.addEventListener('resize', onStepsScroll);
+      }, 1400);
+    }, { threshold: 0.2 }).observe(stepsList);
+  }
+
   // Pan photos marked data-pan as their section scrolls through the viewport.
   // The photo glides toward its scroll-based target a little each frame (smooth, lagging
   // follow) instead of jumping with every scroll tick.

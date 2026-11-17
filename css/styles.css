@@ -407,6 +407,19 @@ p { margin: 0 0 1em; }
 .steps .step-num { font-size: 2.6rem; margin: 0; }
 .steps h3 { font-size: 1.35rem; margin-bottom: .25em; }
 .steps p { margin: 0; color: var(--muted); }
+.steps > li:nth-child(1) { --i: 0; } .steps > li:nth-child(2) { --i: 1; } .steps > li:nth-child(3) { --i: 2; } .steps > li:nth-child(4) { --i: 3; }
+/* 1) Steps slide in from the right, one after another, when the section scrolls into view */
+.reveal-on .steps[data-reveal] > li {
+  opacity: 0; transform: translateX(48px);
+  transition: opacity .7s ease, transform .9s cubic-bezier(.2,.7,.2,1);
+  transition-delay: calc(var(--i) * .16s);
+}
+.reveal-on .steps[data-reveal].in > li { opacity: 1; transform: none; }
+/* 2) Then the step nearest the middle of the screen is in focus; the others soften */
+.steps .step-num, .steps h3 { transition: color .5s ease; }
+.reveal-on .steps.settled > li { transition: opacity .5s ease, transform .9s cubic-bezier(.2,.7,.2,1); transition-delay: 0s; }
+.reveal-on .steps.settled > li:not(.active) { opacity: .55; }
+.steps > li.active .step-num { color: var(--gold); }
 
 /* Testimonial */
 .testimonial { padding: clamp(70px, 9vw, 120px) 0; }
