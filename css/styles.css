@@ -407,6 +407,9 @@ p { margin: 0 0 1em; }
 .steps .step-num { font-size: 2.6rem; margin: 0; }
 .steps h3 { font-size: 1.35rem; margin-bottom: .25em; }
 .steps p { margin: 0; color: var(--muted); }
+.steps > li:nth-child(1) { --i: 0; } .steps > li:nth-child(2) { --i: 1; } .steps > li:nth-child(3) { --i: 2; } .steps > li:nth-child(4) { --i: 3; }
+/* Steps float at slightly different speeds as the section scrolls (--drift set in main.js) */
+.steps > li { transform: translate3d(0, var(--drift, 0px), 0); will-change: transform; }
 
 /* Testimonial */
 .testimonial { padding: clamp(70px, 9vw, 120px) 0; }

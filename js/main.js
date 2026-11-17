@@ -150,6 +150,34 @@
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
+  // Our Process: steps float at slightly different speeds with the scroll, eased each frame
+  // so the motion stays smooth. Scroll-driven only (nothing reacts to hover).
+  var driftList = document.querySelector('[data-drift]');
+  if (driftList && !reduce) {
+    var driftItems = Array.prototype.slice.call(driftList.children);
+    var RANGE = 26;   // px each step moves at most, scaled up per step
+    var driftCur = driftItems.map(function () { return 0; });
+    var driftTarget = function (i) {
+      var vh = window.innerHeight, r = driftList.getBoundingClientRect();
+      var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));  // 0 entering, 1 leaving
+      return (0.5 - p) * 2 * RANGE * (0.4 + i * 0.4);
+    };
+    var driftRunning = false;
+    var driftStep = function () {
+      var moving = false;
+      driftItems.forEach(function (li, i) {
+        var t = driftTarget(i), d = t - driftCur[i];
+        if (Math.abs(d) > 0.05) { driftCur[i] += d * 0.06; moving = true; } else { driftCur[i] = t; }
+        li.style.setProperty('--drift', driftCur[i].toFixed(2) + 'px');
+      });
+      if (moving) requestAnimationFrame(driftStep); else driftRunning = false;
+    };
+    var driftKick = function () { if (!driftRunning) { driftRunning = true; requestAnimationFrame(driftStep); } };
+    driftItems.forEach(function (li, i) { driftCur[i] = driftTarget(i); li.style.setProperty('--drift', driftCur[i].toFixed(2) + 'px'); });
+    window.addEventListener('scroll', driftKick, { passive: true });
+    window.addEventListener('resize', driftKick);
+  }
+
   // Pan photos marked data-pan as their section scrolls through the viewport.
   // The photo glides toward its scroll-based target a little each frame (smooth, lagging
   // follow) instead of jumping with every scroll tick.
