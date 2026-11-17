@@ -269,6 +269,11 @@ p { margin: 0 0 1em; }
 .card-grid.four .service-card { container-type: inline-size; padding-left: max(1.25rem, 10%); padding-right: max(1.25rem, 10%); }
 .card-grid.four .service-body h3 { font-size: min(1.4rem, calc(100cqi / 11)); white-space: nowrap; }
 /* Who We Serve: 4 across on desktop, 2x2 on tablets (incl. landscape iPads), 1 column on phones */
+/* "two-up" variant (Who We Serve page): 2x2 on every screen wider than a phone */
+@media (min-width: 761px) {
+  .card-grid.four.two-up { grid-template-columns: repeat(2, 1fr); }
+  .card-grid.four.two-up .service-card { padding-left: 14%; padding-right: 14%; min-height: 340px; }
+}
 @media (max-width: 1200px) {
   .card-grid.four { grid-template-columns: repeat(2, 1fr); }
   .card-grid.four .service-card { padding-left: 14%; padding-right: 14%; }
