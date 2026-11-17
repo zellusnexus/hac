@@ -3,7 +3,7 @@
 
 Each line of the data file is "<uploadcare-uuid> <filename>". The filename prefix
 (kitchen-12.jpg -> "kitchen") decides which portfolio page and room group the
-photo lands in (on gallery.html), per GROUPS below. Re-run after adding photos:
+photo lands in (gallery-<category>.html), per GROUPS below. Re-run after adding photos:
 
     python3 scripts/build-portfolio.py
 """
@@ -38,7 +38,8 @@ LABEL = {
     "commercial": "Commercial",
     "builder": "Builder",
 }
-PAGE = ROOT / "gallery.html"  # all galleries live on one page, one marked block per category
+OVERVIEW = ROOT / "gallery.html"           # cover tiles for each category
+def page(cat): return ROOT / f"gallery-{cat}.html"  # full photo galleries
 
 
 def load():
@@ -76,11 +77,11 @@ def photo_grid(items, label, heading):
 
 def replace_marked(text, key, new):
     start, end = f"<!-- portfolio:{key}:start -->", f"<!-- portfolio:{key}:end -->"
-    assert start in text and end in text, f"markers for {key} not found in gallery.html"
+    assert start in text and end in text, f"markers for {key} not found"
     return re.sub(re.escape(start) + ".*?" + re.escape(end), lambda _: start + new + end, text, count=1, flags=re.S)
 
 
-def build_category_sections(photos, text):
+def build_category_pages(photos):
     for cat, groups in GROUPS.items():
         label = LABEL[cat]
         parts = []
@@ -93,13 +94,32 @@ def build_category_sections(photos, text):
                 f'<div class="gallery-group" id="{gid}"><h3 class="gallery-room">{heading}</h3>'
                 f'{photo_grid(items, label, heading)}</div>'
             )
-        text = replace_marked(text, cat, "".join(parts))
-    return text
+        path = page(cat)
+        path.write_text(replace_marked(path.read_text(), cat, "".join(parts)))
+
+
+def build_overview(photos):
+    """gallery.html: three cover photos per category, linking to that category's page."""
+    text = OVERVIEW.read_text()
+    for cat, groups in GROUPS.items():
+        label = LABEL[cat]
+        picks = [(gid, h, photos[p][0]) for gid, h, p in groups][:3]
+        if len(picks) < 3:  # single-group category: take its first three photos
+            gid, h, p = groups[0]
+            picks = [(gid, h, item) for item in photos[p][:3]]
+        tiles = []
+        for i, (gid, heading, (num, uuid, ext)) in enumerate(picks):
+            cls = "project wide" if i == 0 else "project"
+            tiles.append(
+                f'<a class="{cls}" href="gallery-{cat}.html#{gid}" style="--img:url({url(uuid, ext, "1200x900")})">'
+                f'<figcaption><span>{label}</span>{heading}</figcaption></a>'
+            )
+        text = replace_marked(text, f"overview-{cat}", '<div class="gallery">' + "".join(tiles) + "</div>")
+    OVERVIEW.write_text(text)
 
 
 if __name__ == "__main__":
     photos = load()
-    text = PAGE.read_text()
-    text = build_category_sections(photos, text)
-    PAGE.write_text(text)
+    build_category_pages(photos)
+    build_overview(photos)
     print({p: len(v) for p, v in photos.items()}, "total", sum(len(v) for v in photos.values()))
