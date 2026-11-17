@@ -312,9 +312,10 @@ p { margin: 0 0 1em; }
 .split-media { min-height: 520px; position: relative; overflow: hidden; background: linear-gradient(200deg, #8a6a48, #4a3a2a); }
 /* Photo sits on a wider layer that pans sideways as the section scrolls through view (--pan: 0 to 1, set in main.js) */
 .split-media::before {
-  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 112%;
+  content: ""; position: absolute; top: -4%; bottom: -4%; left: 0; width: 112%;
   background: var(--img) center / cover;
-  transform: translate3d(calc(var(--pan, .5) * -10.7%), 0, 0);
+  /* Sideways pan plus a gentle upward drift as you scroll down */
+  transform: translate3d(calc(var(--pan, .5) * -10.7%), calc((var(--pan, .5) - .5) * -7.4%), 0);
   /* Eased lag so the photo drifts into place a moment after the scroll */
   transition: transform 1s cubic-bezier(.22,.61,.36,1);
   will-change: transform;
