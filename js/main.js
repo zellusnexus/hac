@@ -21,9 +21,22 @@
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     mobileNav.classList.toggle('open', open);
     header.classList.toggle('menu-open', open);
+    if (open) mobileNav.querySelectorAll('.m-group.open .m-sub').forEach(function (sub) {
+      sub.style.maxHeight = sub.scrollHeight + 'px';
+    });
   }
   toggle.addEventListener('click', function () {
     setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  // Expand/collapse a burger-menu section to its exact height so the motion is smooth
+  function setGroup(g, open) {
+    var sub = g.querySelector('.m-sub');
+    g.classList.toggle('open', open);
+    g.querySelector('.m-toggle').setAttribute('aria-expanded', String(open));
+    sub.style.maxHeight = open ? sub.scrollHeight + 'px' : '0px';
+  }
+  mobileNav.querySelectorAll('.m-group.open .m-sub').forEach(function (sub) {
+    sub.style.maxHeight = sub.scrollHeight + 'px';
   });
   mobileNav.addEventListener('click', function (e) {
     var t = e.target.closest('.m-toggle');
@@ -32,12 +45,9 @@
       var open = !group.classList.contains('open');
       // Only one section open at a time: close the others first
       mobileNav.querySelectorAll('.m-group.open').forEach(function (g) {
-        if (g === group) return;
-        g.classList.remove('open');
-        g.querySelector('.m-toggle').setAttribute('aria-expanded', 'false');
+        if (g !== group) setGroup(g, false);
       });
-      group.classList.toggle('open', open);
-      t.setAttribute('aria-expanded', String(open));
+      setGroup(group, open);
       return;
     }
     if (e.target.closest('a')) setMenu(false);
