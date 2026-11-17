@@ -72,7 +72,23 @@
     li.addEventListener('mouseleave', function () { closeMenu(li); });
   });
 
-  // Portfolio lightbox: click a photo to view it full size, arrows/swipe to browse.
+  // Collapsible gallery rooms: a link to #room opens that room and scrolls to it
+  function openFold() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    var el = id && document.getElementById(id);
+    if (el && el.tagName === 'DETAILS') {
+      // arriving at a specific room: show just that room
+      document.querySelectorAll('.gallery-fold[open]').forEach(function (d) { if (d !== el) d.open = false; });
+      el.open = true;
+      requestAnimationFrame(function () { el.scrollIntoView(); });
+    }
+  }
+  if (document.querySelector('.gallery-fold')) {
+    openFold();
+    window.addEventListener('hashchange', openFold);
+  }
+
+  // Portfolio lightbox: click a photo to view it full size, arrows/swipe browse that room's photos.
   var photos = Array.prototype.slice.call(document.querySelectorAll('.photo'));
   if (photos.length) {
     var box = document.createElement('div');
@@ -86,14 +102,14 @@
     document.body.appendChild(box);
     var img = box.querySelector('img');
     var count = box.querySelector('.lb-count');
-    var current = 0, opener = null;
+    var current = 0, opener = null, set = photos;
 
     function show(i) {
-      current = (i + photos.length) % photos.length;
-      var a = photos[current];
+      current = (i + set.length) % set.length;
+      var a = set[current];
       img.src = a.href;
       img.alt = a.querySelector('img').alt;
-      count.textContent = (current + 1) + ' / ' + photos.length;
+      count.textContent = (current + 1) + ' / ' + set.length;
     }
     function close() {
       box.classList.remove('open');
@@ -101,11 +117,13 @@
       img.removeAttribute('src');
       if (opener) opener.focus();
     }
-    photos.forEach(function (a, i) {
+    photos.forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
         opener = a;
-        show(i);
+        var room = a.closest('.gallery-group');
+        set = room ? Array.prototype.slice.call(room.querySelectorAll('.photo')) : photos;
+        show(set.indexOf(a));
         box.classList.add('open');
         document.body.style.overflow = 'hidden';
         box.querySelector('.lb-close').focus();

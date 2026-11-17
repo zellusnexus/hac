@@ -85,15 +85,19 @@ def build_category_pages(photos):
     for cat, groups in GROUPS.items():
         label = LABEL[cat]
         parts = []
-        if len(groups) > 1:
-            links = "".join(f'<a href="#{gid}">{h} <span>{len(photos[p])}</span></a>' for gid, h, p in groups)
-            parts.append(f'<nav class="photo-jump" aria-label="Jump to room">{links}</nav>')
-        for gid, heading, prefix in groups:
+        collapsible = len(groups) > 1  # several rooms: each is a collapsible row, first one open
+        for i, (gid, heading, prefix) in enumerate(groups):
             items = photos[prefix]
-            parts.append(
-                f'<div class="gallery-group" id="{gid}"><h3 class="gallery-room">{heading}</h3>'
-                f'{photo_grid(items, label, heading)}</div>'
-            )
+            grid = photo_grid(items, label, heading)
+            if collapsible:
+                n = len(items)
+                parts.append(
+                    f'<details class="gallery-group gallery-fold" id="{gid}"{" open" if i == 0 else ""}>'
+                    f'<summary><h3 class="gallery-room">{heading}</h3><span class="fold-count">{n} photo{"s" if n != 1 else ""}</span></summary>'
+                    f'{grid}</details>'
+                )
+            else:
+                parts.append(f'<div class="gallery-group" id="{gid}"><h3 class="gallery-room">{heading}</h3>{grid}</div>')
         path = page(cat)
         path.write_text(replace_marked(path.read_text(), cat, "".join(parts)))
 
