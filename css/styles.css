@@ -450,6 +450,9 @@ p { margin: 0 0 1em; }
     transition: max-height .35s ease;
   }
   .mobile-nav.open { max-height: calc(100vh - var(--header-h)); max-height: calc(100dvh - var(--header-h)); overflow-y: auto; overscroll-behavior: contain; }
+  /* Never show a scrollbar (it flashed while the menu animated open); a very long menu still scrolls by swipe */
+  .mobile-nav { scrollbar-width: none; -ms-overflow-style: none; }
+  .mobile-nav::-webkit-scrollbar { display: none; }
   .mobile-nav a { color: var(--white); text-decoration: none; padding: .9rem var(--gutter); border-top: 1px solid rgba(255,255,255,.08); font-weight: 500; }
   /* Sections with sub-pages: the name links to the main page, the arrow expands the sub-pages */
   .m-row { display: flex; align-items: stretch; border-top: 1px solid rgba(255,255,255,.08); }
