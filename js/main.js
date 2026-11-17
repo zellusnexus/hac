@@ -126,25 +126,30 @@
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
-  // Pan photos marked data-pan sideways as their section scrolls through the viewport.
+  // Pan photos marked data-pan as their section scrolls through the viewport.
+  // The photo glides toward its scroll-based target a little each frame (smooth, lagging
+  // follow) instead of jumping with every scroll tick.
   var panEls = Array.prototype.slice.call(document.querySelectorAll('[data-pan]'));
   if (panEls.length && !reduce) {
-    var ticking = false;
-    var updatePan = function () {
-      var vh = window.innerHeight;
-      panEls.forEach(function (el) {
-        var r = el.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > vh) return;
-        var p = (vh - r.top) / (vh + r.height);
-        el.style.setProperty('--pan', Math.min(1, Math.max(0, p)).toFixed(4));
-      });
-      ticking = false;
+    var EASE = 0.035; // share of the remaining distance covered per frame: lower = slower, smoother
+    var targetOf = function (el) {
+      var vh = window.innerHeight, r = el.getBoundingClientRect();
+      return Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
     };
-    window.addEventListener('scroll', function () {
-      if (!ticking) { ticking = true; requestAnimationFrame(updatePan); }
-    }, { passive: true });
-    window.addEventListener('resize', updatePan);
-    updatePan();
+    var state = panEls.map(function (el) { var t = targetOf(el); el.style.setProperty('--pan', t.toFixed(4)); return { el: el, cur: t }; });
+    var running = false;
+    var step = function () {
+      var moving = false;
+      state.forEach(function (s) {
+        var t = targetOf(s.el), d = t - s.cur;
+        if (Math.abs(d) > 0.0005) { s.cur += d * EASE; moving = true; } else { s.cur = t; }
+        s.el.style.setProperty('--pan', s.cur.toFixed(4));
+      });
+      if (moving) requestAnimationFrame(step); else running = false;
+    };
+    var kick = function () { if (!running) { running = true; requestAnimationFrame(step); } };
+    window.addEventListener('scroll', kick, { passive: true });
+    window.addEventListener('resize', kick);
   }
 
   var year = document.getElementById('year');
