@@ -150,33 +150,32 @@
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
-  // Our Process: once the steps have slid in, keep the step nearest the middle of the screen in focus.
-  var stepsList = document.querySelector('[data-steps]');
-  if (stepsList && !reduce && 'IntersectionObserver' in window) {
-    var stepItems = Array.prototype.slice.call(stepsList.children);
-    var markActive = function () {
-      var mid = window.innerHeight / 2, best = null, bestD = Infinity;
-      stepItems.forEach(function (li) {
-        var r = li.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - mid);
-        if (d < bestD) { bestD = d; best = li; }
+  // Our Process: steps float at slightly different speeds with the scroll, eased each frame
+  // so the motion stays smooth. Scroll-driven only (nothing reacts to hover).
+  var driftList = document.querySelector('[data-drift]');
+  if (driftList && !reduce) {
+    var driftItems = Array.prototype.slice.call(driftList.children);
+    var RANGE = 26;   // px each step moves at most, scaled up per step
+    var driftCur = driftItems.map(function () { return 0; });
+    var driftTarget = function (i) {
+      var vh = window.innerHeight, r = driftList.getBoundingClientRect();
+      var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));  // 0 entering, 1 leaving
+      return (0.5 - p) * 2 * RANGE * (0.4 + i * 0.4);
+    };
+    var driftRunning = false;
+    var driftStep = function () {
+      var moving = false;
+      driftItems.forEach(function (li, i) {
+        var t = driftTarget(i), d = t - driftCur[i];
+        if (Math.abs(d) > 0.05) { driftCur[i] += d * 0.06; moving = true; } else { driftCur[i] = t; }
+        li.style.setProperty('--drift', driftCur[i].toFixed(2) + 'px');
       });
-      stepItems.forEach(function (li) { li.classList.toggle('active', li === best); });
+      if (moving) requestAnimationFrame(driftStep); else driftRunning = false;
     };
-    var stepsTick = false;
-    var onStepsScroll = function () {
-      if (!stepsTick) { stepsTick = true; requestAnimationFrame(function () { markActive(); stepsTick = false; }); }
-    };
-    new IntersectionObserver(function (entries, obs) {
-      if (!entries[0].isIntersecting) return;
-      obs.disconnect();
-      // let the slide-in finish before softening the other steps
-      setTimeout(function () {
-        markActive();
-        stepsList.classList.add('settled');
-        window.addEventListener('scroll', onStepsScroll, { passive: true });
-        window.addEventListener('resize', onStepsScroll);
-      }, 1400);
-    }, { threshold: 0.2 }).observe(stepsList);
+    var driftKick = function () { if (!driftRunning) { driftRunning = true; requestAnimationFrame(driftStep); } };
+    driftItems.forEach(function (li, i) { driftCur[i] = driftTarget(i); li.style.setProperty('--drift', driftCur[i].toFixed(2) + 'px'); });
+    window.addEventListener('scroll', driftKick, { passive: true });
+    window.addEventListener('resize', driftKick);
   }
 
   // Pan photos marked data-pan as their section scrolls through the viewport.
