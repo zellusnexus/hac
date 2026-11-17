@@ -663,19 +663,24 @@ main > section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .fold-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.1rem; }
 .fold-head .gallery-room { margin: 0; }
 .fold-count { color: var(--muted); font-size: .95rem; }
-.gallery-fold:not(.expanded) .photo:nth-child(n+5) { display: none; }   /* desktop: one row of 4 */
+.gallery-fold:not(.expanded) .photo:nth-child(n+9) { display: none; }   /* desktop: two rows of 4 */
 .fold-toggle {
-  display: block; margin: 1.2rem auto 0; padding: .8em 1.8em; cursor: pointer;
-  font: 600 .8rem var(--sans); letter-spacing: .1em; text-transform: uppercase;
-  color: var(--ink); background: none; border: 1px solid var(--line); transition: border-color .2s, color .2s;
+  display: flex; align-items: center; gap: .55em; margin: 1.3rem auto 0; padding: .35em 0; cursor: pointer;
+  font: 500 .98rem var(--sans); color: var(--ink); background: none; border: 0;
+  border-bottom: 1px solid var(--gold); transition: color .2s, border-color .2s;
 }
-.fold-toggle:hover { border-color: var(--gold); color: var(--gold-dark); }
+.fold-toggle::after {
+  content: ""; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg); transition: transform .25s ease;
+}
+.gallery-fold.expanded .fold-toggle::after { transform: translateY(2px) rotate(-135deg); }
+.fold-toggle:hover, .fold-toggle:focus-visible { color: var(--gold-dark); border-color: var(--gold-dark); }
 .fold-toggle[hidden] { display: none; }
 @media (max-width: 1080px) {
-  .gallery-fold:not(.expanded) .photo:nth-child(n+4) { display: none; }   /* one row of 3 */
+  .gallery-fold:not(.expanded) .photo:nth-child(n+7) { display: none; }   /* two rows of 3 */
 }
 @media (max-width: 760px) {
-  .gallery-fold:not(.expanded) .photo:nth-child(n+3) { display: none; }   /* one row of 2 */
+  .gallery-fold:not(.expanded) .photo:nth-child(n+5) { display: none; }   /* two rows of 2 */
 }
 .gallery-room { font-family: var(--serif); font-size: clamp(1.4rem, 2.2vw, 1.75rem); margin: 0 0 1.1rem; }
 a.project { display: block; min-height: 300px; text-decoration: none; }

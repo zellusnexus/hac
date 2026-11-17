@@ -72,7 +72,7 @@
     li.addEventListener('mouseleave', function () { closeMenu(li); });
   });
 
-  // Gallery rooms show a one-row preview; "Show all" reveals the rest.
+  // Gallery rooms show a two-row preview; "Show all" reveals the rest.
   function setFold(room, open) {
     var btn = room.querySelector('.fold-toggle');
     room.classList.toggle('expanded', open);
