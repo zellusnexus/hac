@@ -32,5 +32,5 @@ especially the history timeline, industries served, FAQ answers, timelines, hour
   `data/portfolio-images.txt` (one `<uploadcare-uuid> <filename>` per line). The filename prefix
   (`kitchen-`, `bar-`, `commercial-`…) picks the category and room group; see `GROUPS` in
   `scripts/build-portfolio.py`. After adding photos, run `python3 scripts/build-portfolio.py`.
-- **Contact form:** `action="#"` — point it at your form handler (Formspree, Netlify Forms, etc.).
+- **Forms:** the home page and `contact.html` show a dashed *form placeholder* box (`.form-placeholder`). Replace each box with your embedded form (Formspree, HubSpot, Jotform, etc.); the box lists the fields it should collect.
 - **Colors/fonts:** all tokens live at the top of `css/styles.css`.
