@@ -111,7 +111,7 @@ def build_overview(photos):
         tiles = []
         for i, (gid, heading, (num, uuid, ext)) in enumerate(picks):
             cls = "project wide" if i == 0 else "project"
-            caption = f'<figcaption><span>{label}</span>{heading}</figcaption>'
+            caption = f'<figcaption>{heading}</figcaption>'
             if single and i > 0:  # no repeated captions; describe the photo for screen readers instead
                 caption = f'<span class="visually-hidden">More {label.lower()} {html.escape(html.unescape(heading).lower())} photos</span>'
             tiles.append(
