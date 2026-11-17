@@ -272,7 +272,7 @@ p { margin: 0 0 1em; }
 /* Who We Serve page: audience rows (different from the home page's dark centered boxes) */
 .aud-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .aud-card {
-  display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: 1.3rem;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.3rem;
   background: var(--white); padding: 1.7rem 1.8rem; text-decoration: none; color: inherit;
   border-left: 3px solid transparent; transition: border-color .25s ease, box-shadow .25s ease;
 }
