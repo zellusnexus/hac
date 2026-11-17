@@ -85,16 +85,18 @@ def build_category_pages(photos):
     for cat, groups in GROUPS.items():
         label = LABEL[cat]
         parts = []
-        collapsible = len(groups) > 1  # several rooms: each is a collapsible row, first one open
-        for i, (gid, heading, prefix) in enumerate(groups):
+        preview = len(groups) > 1  # several rooms: each shows a preview row of photos with a "Show all" button
+        for gid, heading, prefix in groups:
             items = photos[prefix]
             grid = photo_grid(items, label, heading)
-            if collapsible:
+            if preview:
                 n = len(items)
+                more = (f'<button class="fold-toggle" type="button" aria-expanded="false" data-more="Show all {n} photos" '
+                        f'data-less="Show fewer">Show all {n} photos</button>') if n > 4 else ""
                 parts.append(
-                    f'<details class="gallery-group gallery-fold" id="{gid}"{" open" if i == 0 else ""}>'
-                    f'<summary><h3 class="gallery-room">{heading}</h3><span class="fold-count">{n} photo{"s" if n != 1 else ""}</span></summary>'
-                    f'{grid}</details>'
+                    f'<div class="gallery-group gallery-fold" id="{gid}">'
+                    f'<div class="fold-head"><h3 class="gallery-room">{heading}</h3><span class="fold-count">{n} photo{"s" if n != 1 else ""}</span></div>'
+                    f'{grid}{more}</div>'
                 )
             else:
                 parts.append(f'<div class="gallery-group" id="{gid}"><h3 class="gallery-room">{heading}</h3>{grid}</div>')

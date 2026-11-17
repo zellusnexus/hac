@@ -72,18 +72,35 @@
     li.addEventListener('mouseleave', function () { closeMenu(li); });
   });
 
-  // Collapsible gallery rooms: a link to #room opens that room and scrolls to it
+  // Gallery rooms show a preview; "Show all" reveals the rest. A link to #room expands that room.
+  function setFold(room, open) {
+    var btn = room.querySelector('.fold-toggle');
+    room.classList.toggle('expanded', open);
+    if (btn) { btn.setAttribute('aria-expanded', String(open)); btn.textContent = open ? btn.dataset.less : btn.dataset.more; }
+  }
+  document.querySelectorAll('.fold-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var room = btn.closest('.gallery-fold'), open = !room.classList.contains('expanded');
+      setFold(room, open);
+      if (!open) room.scrollIntoView({ block: 'start' });
+    });
+  });
   function openFold() {
     var id = decodeURIComponent(location.hash.slice(1));
     var el = id && document.getElementById(id);
-    if (el && el.tagName === 'DETAILS') {
-      // arriving at a specific room: show just that room
-      document.querySelectorAll('.gallery-fold[open]').forEach(function (d) { if (d !== el) d.open = false; });
-      el.open = true;
-      requestAnimationFrame(function () { el.scrollIntoView(); });
-    }
+    if (el && el.classList.contains('gallery-fold')) setFold(el, true);
+  }
+  // Only offer "Show all" when the preview is actually hiding photos at this screen size
+  function syncFoldButtons() {
+    document.querySelectorAll('.gallery-fold').forEach(function (room) {
+      var btn = room.querySelector('.fold-toggle');
+      if (!btn || room.classList.contains('expanded')) return;
+      btn.hidden = !Array.prototype.some.call(room.querySelectorAll('.photo'), function (a) { return a.offsetParent === null; });
+    });
   }
   if (document.querySelector('.gallery-fold')) {
+    syncFoldButtons();
+    window.addEventListener('resize', syncFoldButtons);
     openFold();
     window.addEventListener('hashchange', openFold);
   }
