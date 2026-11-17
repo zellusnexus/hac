@@ -7,15 +7,14 @@ serif statements (Source Serif 4), geometric sans UI (Jost), and gold CTAs.
 Open `index.html` in a browser — no build step.
 
 ## Pages
-The site keeps the old site's page structure (Home, Services, Gallery, Contact) plus an About page.
-All pages share the same header, footer and `css/styles.css`; dropdown items jump to sections within each page:
+The menu follows the old site (Services, Gallery, Contact) plus About. Each top-level item is an overview page,
+and each dropdown item is its own page. All pages share the same header, footer and `css/styles.css`:
 
-| Menu | Page | Sections (anchor) |
+| Menu | Overview page | Dropdown pages |
 | --- | --- | --- |
-| Home | `index.html` | |
-| Services | `services.html` | overview, `#commercial`, `#residential`, `#architects-designers`, `#custom-home-builders`, `#process` |
-| Gallery | `gallery.html` | overview, `#gallery-residential`, `#gallery-commercial`, `#gallery-builder` |
-| About | `about.html` | Our Story, `#quality`, `#testimonials` |
+| Services | `services.html` | `commercial.html`, `residential.html`, `architects-designers.html`, `custom-home-builders.html`, `process.html` |
+| Gallery | `gallery.html` | `gallery-residential.html`, `gallery-commercial.html`, `gallery-builder.html` |
+| About | `about.html` | `quality.html`, `testimonials.html` |
 | Contact | `contact.html` | |
 
 The inner-page copy is a draft based on what a custom cabinet shop like HAC would likely say. Have the client review it,
@@ -29,7 +28,7 @@ especially the history timeline, industries served, FAQ answers, timelines, hour
   - `hero.mp4` (looping, muted drone/site clip) and `hero.jpg` (poster/fallback)
   - `about.jpg`, `project-1.jpg`, `project-2.jpg`, `project-3.jpg`
   Until then, tinted gradients show in their place.
-- **Gallery photos:** the Residential, Commercial and Builder galleries on `gallery.html` are generated from
+- **Gallery photos:** the galleries on `gallery-residential.html`, `gallery-commercial.html` and `gallery-builder.html` (and the cover tiles on `gallery.html`) are generated from
   `data/portfolio-images.txt` (one `<uploadcare-uuid> <filename>` per line). The filename prefix
   (`kitchen-`, `bar-`, `commercial-`…) picks the category and room group; see `GROUPS` in
   `scripts/build-portfolio.py`. After adding photos, run `python3 scripts/build-portfolio.py`.
