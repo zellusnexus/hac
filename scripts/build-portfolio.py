@@ -103,13 +103,19 @@ def build_overview(photos):
     text = OVERVIEW.read_text()
     for cat, groups in GROUPS.items():
         label = LABEL[cat]
-        picks = [(gid, h, photos[p][0]) for gid, h, p in groups][:3]  # one cover photo per room (a single-room category gets one large photo)
+        picks = [(gid, h, photos[p][0]) for gid, h, p in groups][:3]  # one cover photo per room
+        single = len(groups) == 1
+        if single:  # single-room category: three different photos, but only the first is labelled
+            gid, h, p = groups[0]
+            picks = [(gid, h, item) for item in photos[p][:3]]
         tiles = []
         for i, (gid, heading, (num, uuid, ext)) in enumerate(picks):
-            cls = "project wide" + (" solo" if len(picks) == 1 else "") if i == 0 else "project"
+            cls = "project wide" if i == 0 else "project"
+            caption = f'<figcaption><span>{label}</span>{heading}</figcaption>'
+            if single and i > 0:  # no repeated captions; describe the photo for screen readers instead
+                caption = f'<span class="visually-hidden">More {label.lower()} {html.escape(html.unescape(heading).lower())} photos</span>'
             tiles.append(
-                f'<a class="{cls}" href="gallery-{cat}.html#{gid}" style="--img:url({url(uuid, ext, "1200x900")})">'
-                f'<figcaption><span>{label}</span>{heading}</figcaption></a>'
+                f'<a class="{cls}" href="gallery-{cat}.html#{gid}" style="--img:url({url(uuid, ext, "1200x900")})">{caption}</a>'
             )
         text = replace_marked(text, f"overview-{cat}", '<div class="gallery">' + "".join(tiles) + "</div>")
         text = replace_marked(text, f"rooms-{cat}", f'<a href="gallery-{cat}.html" class="btn btn-primary">See all photos</a>')
