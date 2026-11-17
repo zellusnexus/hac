@@ -90,29 +90,10 @@ def build_category_sections(photos, text):
         for gid, heading, prefix in groups:
             items = photos[prefix]
             parts.append(
-                f'<div class="gallery-group" id="{gid}"><div class="section-head"><p class="eyebrow">{label}</p>'
-                f'<h2>{heading}</h2></div>{photo_grid(items, label, heading)}</div>'
+                f'<div class="gallery-group" id="{gid}"><h3 class="gallery-room">{heading}</h3>'
+                f'{photo_grid(items, label, heading)}</div>'
             )
         text = replace_marked(text, cat, "".join(parts))
-    return text
-
-
-def build_overview(photos, text):
-    """Overview at the top of gallery.html: three cover photos per category, linking to its photos below."""
-    for cat, groups in GROUPS.items():
-        label = LABEL[cat]
-        picks = [(gid, h, photos[p][0]) for gid, h, p in groups][:3]
-        if len(picks) < 3:  # single-group category: take its first three photos
-            gid, h, p = groups[0]
-            picks = [(gid, h, item) for item in photos[p][:3]]
-        tiles = []
-        for i, (gid, heading, (num, uuid, ext)) in enumerate(picks):
-            cls = "project wide" if i == 0 else "project"
-            tiles.append(
-                f'<a class="{cls}" href="#{gid}" style="--img:url({url(uuid, ext, "1200x900")})">'
-                f'<figcaption><span>{label}</span>{heading}</figcaption></a>'
-            )
-        text = replace_marked(text, f"overview-{cat}", '<div class="gallery">' + "".join(tiles) + "</div>")
     return text
 
 
@@ -120,6 +101,5 @@ if __name__ == "__main__":
     photos = load()
     text = PAGE.read_text()
     text = build_category_sections(photos, text)
-    text = build_overview(photos, text)
     PAGE.write_text(text)
     print({p: len(v) for p, v in photos.items()}, "total", sum(len(v) for v in photos.values()))
