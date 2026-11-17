@@ -269,18 +269,23 @@ p { margin: 0 0 1em; }
 .card-grid.four .service-card { container-type: inline-size; padding-left: max(1.25rem, 10%); padding-right: max(1.25rem, 10%); }
 .card-grid.four .service-body h3 { font-size: min(1.4rem, calc(100cqi / 11)); white-space: nowrap; }
 /* Who We Serve: 4 across on desktop, 2x2 on tablets (incl. landscape iPads), 1 column on phones */
-/* "two-up" variant (Who We Serve page): 2x2 on every screen wider than a phone */
-@media (min-width: 761px) {
+/* "two-up" variant (Who We Serve page): 2x2 on wide screens too */
+@media (min-width: 1201px) {
   .card-grid.four.two-up { grid-template-columns: repeat(2, 1fr); }
   .card-grid.four.two-up .service-card { padding-left: 14%; padding-right: 14%; min-height: 340px; }
 }
+/* Four-box grids: 4 across on desktop, 2x2 on tablets and wider phones, 1 column only on narrow phones */
 @media (max-width: 1200px) {
   .card-grid.four { grid-template-columns: repeat(2, 1fr); }
   .card-grid.four .service-card { padding-left: 14%; padding-right: 14%; }
 }
 @media (max-width: 760px) {
-  .card-grid.four { grid-template-columns: 1fr; }
-  .card-grid.four .service-card { padding-left: max(1.5rem, 10%); padding-right: max(1.5rem, 10%); }
+  .card-grid.four { gap: 14px; }
+  .card-grid.four .service-card { padding: 1.6rem max(1.1rem, 9%) 1.4rem; }
+}
+@media (max-width: 560px) {
+  .card-grid.four { grid-template-columns: 1fr; gap: 24px; }
+  .card-grid.four .service-card { padding: 2rem max(1.5rem, 10%) 1.8rem; }
 }
 .service-card {
   position: relative; display: flex; flex-direction: column;
@@ -475,7 +480,7 @@ p { margin: 0 0 1em; }
   .m-sub a { display: block; padding: .75rem var(--gutter) .75rem calc(var(--gutter) + 1.1rem); font-size: .95rem; font-weight: 400; color: #d8d1c6; border-top: 1px solid rgba(255,255,255,.05); }
   .mobile-nav .btn { margin: 1rem var(--gutter) 1.4rem; text-align: center; padding: 1em; }
   .site-header.menu-open { background: var(--charcoal); }
-  .card-grid, .card-grid.four { grid-template-columns: repeat(2, 1fr); }
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
   .card-grid.four .service-card { min-height: 340px; }
   .process-split { grid-template-columns: 1fr; grid-template-areas: "side" "steps"; }
   .process-intro p:not(.eyebrow) { max-width: none; }
@@ -491,7 +496,7 @@ p { margin: 0 0 1em; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .stats-grid > div:nth-child(3) { border-left: 0; }
   .stats-grid > div:nth-child(n+3) { border-top: 1px solid var(--line); }
-  .card-grid, .card-grid.four { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr; }
   .service-card, .card-grid.four .service-card { min-height: 0; }
   .split { grid-template-columns: 1fr; }
   .split-media { min-height: 280px; --zoom: 1.35; } /* stacked above the text: zoom in on the photo */
