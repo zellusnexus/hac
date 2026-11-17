@@ -290,15 +290,13 @@ p { margin: 0 0 1em; }
   .aud-arrow { display: none; }
   .aud-icon { width: 46px; height: 46px; } .aud-icon svg { width: 23px; height: 23px; }
 }
-/* Who We Serve page: "advantages" as a split layout with ruled list items (no tiles) */
+/* Who We Serve page: "advantages" — calm 3x2 grid, no rules or tiles, gold titles */
 .section.adv-section { padding-top: clamp(90px, 11vw, 150px); }
-.adv-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: clamp(40px, 6vw, 90px); align-items: start; }
-.adv-head h2 { margin: 0; }
-.adv-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem clamp(28px, 4vw, 56px); }
-.adv-list .feature { background: none; padding: 1.1rem 0 0; border-top: 1px solid var(--gold); }
-.adv-list .feature h3 { color: var(--ink); }
-@media (max-width: 960px) { .adv-split { grid-template-columns: 1fr; } }
-@media (max-width: 600px) { .adv-list { grid-template-columns: 1fr; gap: 1.8rem; } }
+.adv-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem clamp(32px, 5vw, 72px); }
+.adv-list .feature { background: none; padding: 0; }
+.adv-list .feature h3 { color: var(--gold-dark); }
+@media (max-width: 960px) { .adv-list { grid-template-columns: 1fr 1fr; gap: 2.4rem 40px; } }
+@media (max-width: 600px) { .adv-list { grid-template-columns: 1fr; gap: 2rem; } }
 /* Four-box grids: 4 across on desktop, 2x2 on tablets and wider phones, 1 column only on narrow phones */
 @media (max-width: 1200px) {
   .card-grid.four { grid-template-columns: repeat(2, 1fr); }
@@ -670,8 +668,12 @@ a.project:hover::after, a.project:focus-visible::after { box-shadow: inset 0 0 0
 .step-row h3 { font-family: var(--serif); font-size: 1.7rem; }
 .step-row .checklist { margin: 1em 0 0; }
 
-.cta-simple { background: var(--brown-deep); color: #e4dccf; text-align: center; padding: clamp(60px, 8vw, 100px) 0; }
-.cta-simple h2 { color: var(--white); max-width: 820px; margin-left: auto; margin-right: auto; }
+/* Light warm band so it doesn't run into the dark footer below */
+.cta-simple { background: #ece3d3; color: var(--muted); text-align: center; padding: clamp(60px, 8vw, 100px) 0; }
+.cta-simple h2 { color: var(--ink); max-width: 820px; margin-left: auto; margin-right: auto; }
+.cta-simple .eyebrow { color: var(--gold-dark); }
+.cta-simple .btn-glass { background: rgba(42,29,20,.08); color: var(--ink); }
+.cta-simple .btn-glass:hover { background: rgba(42,29,20,.15); }
 .cta-simple p { max-width: 640px; margin: 0 auto 2em; }
 .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
 
