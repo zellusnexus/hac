@@ -72,7 +72,7 @@
     li.addEventListener('mouseleave', function () { closeMenu(li); });
   });
 
-  // Gallery rooms show a preview; "Show all" reveals the rest. A link to #room expands that room.
+  // Gallery rooms show a one-row preview; "Show all" reveals the rest.
   function setFold(room, open) {
     var btn = room.querySelector('.fold-toggle');
     room.classList.toggle('expanded', open);
@@ -85,11 +85,6 @@
       if (!open) room.scrollIntoView({ block: 'start' });
     });
   });
-  function openFold() {
-    var id = decodeURIComponent(location.hash.slice(1));
-    var el = id && document.getElementById(id);
-    if (el && el.classList.contains('gallery-fold')) setFold(el, true);
-  }
   // Only offer "Show all" when the preview is actually hiding photos at this screen size
   function syncFoldButtons() {
     document.querySelectorAll('.gallery-fold').forEach(function (room) {
@@ -101,8 +96,6 @@
   if (document.querySelector('.gallery-fold')) {
     syncFoldButtons();
     window.addEventListener('resize', syncFoldButtons);
-    openFold();
-    window.addEventListener('hashchange', openFold);
   }
 
   // Portfolio lightbox: click a photo to view it full size, arrows/swipe browse that room's photos.
