@@ -26,7 +26,15 @@
     setMenu(toggle.getAttribute('aria-expanded') !== 'true');
   });
   mobileNav.addEventListener('click', function (e) {
-    if (e.target.tagName === 'A') setMenu(false);
+    var t = e.target.closest('.m-toggle');
+    if (t) {
+      var group = t.closest('.m-group');
+      var open = !group.classList.contains('open');
+      group.classList.toggle('open', open);
+      t.setAttribute('aria-expanded', String(open));
+      return;
+    }
+    if (e.target.closest('a')) setMenu(false);
   });
 
   // Desktop dropdowns open on hover, or on keyboard focus (CSS :focus-visible).

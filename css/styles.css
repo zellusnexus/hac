@@ -449,8 +449,21 @@ p { margin: 0 0 1em; }
     max-height: 0; overflow: hidden;
     transition: max-height .35s ease;
   }
-  .mobile-nav.open { max-height: 480px; }
+  .mobile-nav.open { max-height: calc(100vh - var(--header-h)); max-height: calc(100dvh - var(--header-h)); overflow-y: auto; overscroll-behavior: contain; }
   .mobile-nav a { color: var(--white); text-decoration: none; padding: .9rem var(--gutter); border-top: 1px solid rgba(255,255,255,.08); font-weight: 500; }
+  /* Sections with sub-pages: the name links to the main page, the arrow expands the sub-pages */
+  .m-row { display: flex; align-items: stretch; border-top: 1px solid rgba(255,255,255,.08); }
+  .m-row a { flex: 1; border-top: 0; }
+  .m-toggle {
+    flex: none; width: 3.6rem; display: grid; place-items: center; cursor: pointer;
+    background: none; border: 0; border-left: 1px solid rgba(255,255,255,.08); color: var(--white);
+  }
+  .m-toggle .chev { width: 14px; height: 9px; transition: transform .25s ease; }
+  .m-group.open .m-toggle { color: var(--gold-light); }
+  .m-group.open .m-toggle .chev { transform: rotate(180deg); }
+  .m-sub { list-style: none; margin: 0; padding: 0; max-height: 0; overflow: hidden; background: rgba(0,0,0,.18); visibility: hidden; transition: max-height .3s ease, visibility .3s; }
+  .m-group.open .m-sub { max-height: 22rem; visibility: visible; }
+  .m-sub a { display: block; padding: .75rem var(--gutter) .75rem calc(var(--gutter) + 1.1rem); font-size: .95rem; font-weight: 400; color: #d8d1c6; border-top: 1px solid rgba(255,255,255,.05); }
   .mobile-nav .btn { margin: 1rem var(--gutter) 1.4rem; text-align: center; padding: 1em; }
   .site-header.menu-open { background: var(--charcoal); }
   .card-grid, .card-grid.four { grid-template-columns: repeat(2, 1fr); }
