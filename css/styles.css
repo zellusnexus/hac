@@ -129,7 +129,7 @@ p { margin: 0 0 1em; }
 
 /* One hover/dropdown color for every nav tab: charcoal over the hero,
    a step lighter than the bar once the header turns solid */
-.site-header { --nav-tab: rgba(43,43,43,.94); }
+.site-header { --nav-tab: rgba(255,255,255,.14); }
 .site-header.is-stuck { --nav-tab: #3a3a3a; }
 .main-nav { flex: 1; }
 .main-nav > ul { list-style: none; margin: 0; padding: 0; display: flex; gap: .6rem; }
@@ -148,13 +148,17 @@ p { margin: 0 0 1em; }
 .main-nav > ul > li > a:hover,
 .main-nav > ul > li > button:hover,
 .main-nav > ul > li.has-menu:hover > a { color: var(--gold-light); background: var(--nav-tab); }
+/* Frosted look over the hero: blur whatever is behind the tab */
+.main-nav > ul > li > a:hover, .main-nav > ul > li.has-menu:hover > a {
+  -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2);
+}
 .main-nav > ul > li > a[aria-current="page"] { background: rgba(232,195,90,.14); }
 .chev { width: 12px; height: 8px; transition: transform .2s; }
 .dropdown {
   list-style: none; margin: 0; padding: .6rem 0;
   position: absolute; top: 100%; left: 0;
   min-width: 240px;
-  /* Charcoal to match the nav; slightly see-through with blur so it sits softly over white content */
+  /* Same color as the hover tab (--nav-tab): frosted over the hero, lighter charcoal once the bar is solid */
   background: var(--nav-tab);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   backdrop-filter: blur(14px) saturate(1.2);
