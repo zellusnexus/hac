@@ -884,3 +884,14 @@ a.project:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .credentials a { text-decoration: none; }
 .credentials a:hover strong { text-decoration: underline; text-underline-offset: 3px; }
 
+/* Services: "Built in Huntsville" card links to About; whole card clickable, gold bar rises on hover */
+.adv-lead .adv-link { color: inherit; text-decoration: none; }
+.adv-lead .adv-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.adv-lead .adv-link::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; z-index: 2;
+  background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform .3s ease;
+}
+.adv-lead:hover .adv-link::before, .adv-lead:focus-within .adv-link::before { transform: scaleY(1); }
+.adv-lead .adv-link:focus-visible { outline: none; }
+.adv-lead:focus-within { outline: 2px solid var(--gold); outline-offset: 2px; }
+
