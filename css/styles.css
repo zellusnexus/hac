@@ -652,11 +652,18 @@ main > section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .faq-group { font-family: var(--sans); font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-dark); margin: 2.4rem 0 .2rem; }
 .faq-group:first-child { margin-top: 0; }
 .faq details { border-bottom: 1px solid var(--line); padding: 1.15rem 0; }
-.faq summary { font-weight: 600; font-size: 1.08rem; color: var(--ink); cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+.faq summary { font-weight: 600; font-size: 1.08rem; color: var(--ink); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: color .2s; }
+.faq summary:hover { color: var(--gold-dark); }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; color: var(--gold-dark); font-size: 1.4rem; line-height: 1; }
-.faq details[open] summary::after { content: "\2013"; }
+/* Gold chevron that turns smoothly, like the nav dropdown arrows */
+.faq summary::after {
+  content: ""; flex: none; width: 9px; height: 9px; margin-right: .3rem;
+  border-right: 1.8px solid var(--gold-dark); border-bottom: 1.8px solid var(--gold-dark);
+  transform: translateY(-3px) rotate(45deg); transition: transform .35s cubic-bezier(.4,0,.2,1);
+}
+.faq details.is-open summary::after { transform: translateY(2px) rotate(-135deg); }
 .faq details p { margin: .8em 0 0; color: var(--muted); }
+.faq-body { overflow: hidden; }   /* answer wrapper that slides open/closed (main.js) */
 
 /* Gallery overview: one band per category, description + rooms beside its cover photos */
 .gal-cat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: clamp(36px, 6vw, 80px); align-items: center; }

@@ -98,12 +98,35 @@
     window.addEventListener('resize', syncFoldButtons);
   }
 
-  // FAQ lists: only one question open at a time
+  // FAQ lists: answers slide open/closed (same timing as the menu dropdowns), one question at a time
+  var FAQ_MS = 350, FAQ_EASE = 'cubic-bezier(.4,0,.2,1)';
+  function faqSet(d, open) {
+    var body = d.querySelector('.faq-body');
+    if (d._anim) d._anim.cancel();
+    var from = body.offsetHeight;
+    d.classList.toggle('is-open', open);
+    if (open) d.open = true;
+    var to = open ? body.scrollHeight : 0;
+    if (reduce || !body.animate) { if (!open) d.open = false; return; }
+    d._anim = body.animate([{ height: (open ? 0 : from) + 'px', opacity: open ? 0 : 1 },
+                            { height: to + 'px', opacity: open ? 1 : 0 }],
+                           { duration: FAQ_MS, easing: FAQ_EASE });
+    d._anim.onfinish = function () { d._anim = null; if (!open) d.open = false; };
+  }
   document.querySelectorAll('.faq').forEach(function (list) {
-    list.addEventListener('toggle', function (e) {
-      if (!e.target.open) return;
-      list.querySelectorAll('details[open]').forEach(function (d) { if (d !== e.target) d.open = false; });
-    }, true);
+    list.querySelectorAll('details').forEach(function (d) {
+      var body = document.createElement('div');
+      body.className = 'faq-body';
+      while (d.lastChild && d.lastChild.tagName !== 'SUMMARY') body.insertBefore(d.lastChild, body.firstChild);
+      d.appendChild(body);
+      if (d.open) d.classList.add('is-open');
+      d.querySelector('summary').addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = !d.classList.contains('is-open');
+        if (open) list.querySelectorAll('details.is-open').forEach(function (o) { if (o !== d) faqSet(o, false); });
+        faqSet(d, open);
+      });
+    });
   });
 
   // Portfolio lightbox: click a photo to view it full size, arrows/swipe browse that room's photos.
