@@ -620,9 +620,21 @@ main > section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
 .two-col.reverse > :first-child { order: 2; }
 /* Service-page "What you get" card under the text; the photo beside it stretches to the column's full height */
-.two-col.has-spec { align-items: stretch; }
-.two-col.has-spec .media-frame { min-height: 100%; }
-@media (max-width: 760px) { .two-col.has-spec .media-frame { min-height: 280px; } }
+/* Desktop: text + card in one column, photo spanning both rows. Tablet: card runs full width under text + photo. Phone: stacked. */
+.two-col.has-spec { grid-template-areas: "text photo" "card photo"; grid-template-rows: auto 1fr; row-gap: 0; align-items: stretch; }
+.two-col.reverse.has-spec { grid-template-areas: "photo text" "photo card"; }
+.two-col.has-spec > .prose { grid-area: text; }
+.two-col.has-spec > .spec-card { grid-area: card; align-self: start; }
+.two-col.has-spec > .media-frame { grid-area: photo; order: 0; min-height: 100%; }
+.two-col.reverse.has-spec > :first-child { order: 0; }
+@media (max-width: 1080px) {
+  .two-col.has-spec { grid-template-areas: "text photo" "card card"; grid-template-rows: auto auto; }
+  .two-col.reverse.has-spec { grid-template-areas: "photo text" "card card"; }
+}
+@media (max-width: 760px) {
+  .two-col.has-spec, .two-col.reverse.has-spec { grid-template-columns: 1fr; grid-template-areas: "text" "card" "photo"; row-gap: 32px; }
+  .two-col.has-spec > .media-frame { min-height: 280px; }
+}
 .spec-card { margin-top: 2rem; background: var(--brown-deep); color: #f1ebe2; padding: 1.7rem 1.9rem; }
 .spec-card .eyebrow { color: var(--gold); margin-bottom: .9rem; }
 .spec-card .checklist { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .7rem 1.6rem; }
