@@ -98,6 +98,14 @@
     window.addEventListener('resize', syncFoldButtons);
   }
 
+  // FAQ lists: only one question open at a time
+  document.querySelectorAll('.faq').forEach(function (list) {
+    list.addEventListener('toggle', function (e) {
+      if (!e.target.open) return;
+      list.querySelectorAll('details[open]').forEach(function (d) { if (d !== e.target) d.open = false; });
+    }, true);
+  });
+
   // Portfolio lightbox: click a photo to view it full size, arrows/swipe browse that room's photos.
   var photos = Array.prototype.slice.call(document.querySelectorAll('.photo'));
   if (photos.length) {
