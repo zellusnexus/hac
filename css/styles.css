@@ -733,11 +733,12 @@ main > section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .gallery-room { font-family: var(--serif); font-size: clamp(1.4rem, 2.2vw, 1.75rem); margin: 0 0 1.1rem; }
 a.project { display: block; min-height: 300px; text-decoration: none; }
 /* Hover: a gold bar rises up from the bottom edge (instead of a gold frame) */
-a.project::after {
+a.project::after, .project-grid .project::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; z-index: 2;
   background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform .3s ease;
 }
-a.project:hover::after, a.project:focus-visible::after { transform: scaleY(1); }
+a.project:hover::after, a.project:focus-visible::after,
+.project-grid .project:hover::after, .project-grid .project:focus-within::after { transform: scaleY(1); }
 a.project:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
 /* Portfolio photo galleries */
