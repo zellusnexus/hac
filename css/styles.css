@@ -860,3 +860,9 @@ a.project:hover::after, a.project:focus-visible::after { box-shadow: inset 0 0 0
 .cta-band.light .form-placeholder svg { color: var(--gold-dark); }
 .cta-band.light .form-placeholder .ph-title { color: var(--ink); }
 
+/* Linked credentials keep their look; a subtle underline on hover shows they open the BBB profile */
+.stat-link { display: block; text-decoration: none; }
+.stat-link:hover .stat-label { color: var(--gold-dark); }
+.credentials a { text-decoration: none; }
+.credentials a:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+
