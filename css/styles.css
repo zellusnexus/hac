@@ -367,7 +367,7 @@ p { margin: 0 0 1em; }
 .split { display: grid; grid-template-columns: 1fr 1fr; background: var(--brown-deep); color: #e4dccf; }
 .split-media { min-height: 520px; position: relative; overflow: hidden; background: linear-gradient(200deg, #8a6a48, #4a3a2a); }
 /* Photo sits on a wider layer that pans sideways as the section scrolls through view (--pan: 0 to 1, set in main.js) */
-.split-media::before, .media-frame[data-pan]::before {
+.split-media::before, .media-frame[data-pan]::before, .q-photo[data-pan]::before {
   content: ""; position: absolute; top: -3%; bottom: -3%; left: 0; width: 108%;
   background: var(--img) center / cover;
   /* Sideways pan plus a gentle upward drift as you scroll down */
@@ -643,7 +643,8 @@ main > section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 @media (max-width: 600px) { .spec-card .checklist { grid-template-columns: 1fr; } }
 .media-frame { min-height: 440px; background: var(--img, none) center / cover, linear-gradient(150deg, #8d6c4f, #3d2b1f); }
 /* Photos with data-pan drift gently on scroll, like the home page (photo moves to a wider ::before layer) */
-.media-frame[data-pan], .split-media { position: relative; overflow: hidden; }
+.media-frame[data-pan], .split-media, .q-photo[data-pan] { position: relative; overflow: hidden; }
+.q-photo[data-pan] { background: linear-gradient(150deg, #8d6c4f, #3d2b1f); }
 .media-frame[data-pan] { background: linear-gradient(150deg, #8d6c4f, #3d2b1f); }
 
 .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
@@ -834,9 +835,9 @@ a.project:hover::after, a.project:focus-visible::after { box-shadow: inset 0 0 0
 .q-body { padding: clamp(50px, 7vw, 100px) clamp(24px, 6vw, 90px); align-self: center; max-width: 640px; }
 .q-body .section-head { text-align: left; margin: 0 0 1.6rem; }
 .q-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem; }
-.q-list li { display: grid; grid-template-columns: 44px 1fr; gap: 1rem; align-items: start; }
-.q-ic { width: 44px; height: 44px; border-radius: 50%; background: var(--white); color: var(--gold-dark); display: grid; place-items: center; }
-.q-ic svg { width: 23px; height: 23px; }
+.q-list li { display: grid; grid-template-columns: 56px 1fr; gap: 1.3rem; align-items: center; }
+.q-ic { width: 56px; height: 56px; border-radius: 50%; background: var(--white); color: var(--gold-dark); display: grid; place-items: center; }
+.q-ic svg { width: 28px; height: 28px; }
 .q-list h3 { margin: .05rem 0 .1rem; font-size: 1.1rem; }
 .q-list p { margin: 0; color: var(--muted); font-size: .95rem; }
 .cred-band .section-head h2 { color: var(--white); }
@@ -855,7 +856,7 @@ a.project:hover::after, a.project:focus-visible::after { box-shadow: inset 0 0 0
 @media (max-width: 760px) {
   .cred-grid { grid-template-columns: 1fr; }
 }
-@media (max-width: 420px) { .q-photo { min-height: 240px; } .cred { grid-template-columns: 1fr; gap: .6rem; } }
+@media (max-width: 420px) { .q-photo { min-height: 240px; } .q-list li { grid-template-columns: 46px 1fr; gap: 1rem; } .q-ic { width: 46px; height: 46px; } .q-ic svg { width: 23px; height: 23px; } .cred { grid-template-columns: 1fr; gap: .6rem; } }
 
 /* Contact page: light version of the consultation band */
 .cta-band.light { background: var(--white); color: var(--ink); }
