@@ -619,6 +619,16 @@ main > section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
 .two-col.reverse > :first-child { order: 2; }
+/* Service-page "What you get" card under the text; the photo beside it stretches to the column's full height */
+.two-col.has-spec { align-items: stretch; }
+.two-col.has-spec .media-frame { min-height: 100%; }
+@media (max-width: 760px) { .two-col.has-spec .media-frame { min-height: 280px; } }
+.spec-card { margin-top: 2rem; background: var(--brown-deep); color: #f1ebe2; padding: 1.7rem 1.9rem; border-left: 3px solid var(--gold); }
+.spec-card .eyebrow { color: var(--gold); margin-bottom: .9rem; }
+.spec-card .checklist { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .7rem 1.6rem; }
+.spec-card .checklist li { position: relative; padding: 0 0 0 1.1rem; font-size: .93rem; line-height: 1.45; }
+.spec-card .checklist li::before { content: ""; position: absolute; left: 0; top: .6em; width: 5px; height: 5px; border: 0; background: var(--gold); transform: none; }
+@media (max-width: 600px) { .spec-card .checklist { grid-template-columns: 1fr; } }
 .media-frame { min-height: 440px; background: var(--img, none) center / cover, linear-gradient(150deg, #8d6c4f, #3d2b1f); }
 /* Photos with data-pan drift gently on scroll, like the home page (photo moves to a wider ::before layer) */
 .media-frame[data-pan], .split-media { position: relative; overflow: hidden; }
