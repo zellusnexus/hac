@@ -461,6 +461,7 @@ p { margin: 0 0 1em; }
 .rv-track { display: flex; gap: var(--gap); transition: transform .7s cubic-bezier(.4,0,.2,1); }
 .rv-track .quote-card { flex: 0 0 calc((100% - var(--gap) * (var(--per) - 1)) / var(--per)); display: flex; flex-direction: column; }
 .rv-track .quote-card h3 { font-family: var(--serif); font-size: 1.4rem; line-height: 1.25; margin: 0 0 .8rem; color: var(--ink); }
+.rv-track .quote-card { background: var(--sand); border-color: var(--sand); border-top-color: var(--gold); }
 .rv-track .quote-card p { font-size: .98rem; color: var(--muted); }
 .rv-track .quote-card footer { margin-top: auto; }
 .rv-controls { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 2rem; }
