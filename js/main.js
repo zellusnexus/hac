@@ -302,40 +302,55 @@
     window.addEventListener('load', function () { layoutMason(true); });
   }
 
-  // Reviews carousel: fades through slides every 7s. Pauses while hovered or focused,
-  // stays paused once the visitor presses Pause, and never auto-rotates for reduced motion.
+  // Reviews carousel: a row of cards that slides one card every 6s and loops seamlessly
+  // (the cards are cloned once so the row never runs out). Pauses while hovered or focused;
+  // no automatic movement for visitors who prefer reduced motion.
   var rv = document.querySelector('.rv');
   if (rv) {
-    var slides = Array.prototype.slice.call(rv.querySelectorAll('.rv-slide'));
-    var dots = Array.prototype.slice.call(rv.querySelectorAll('.rv-dot'));
-    var pauseBtn = rv.querySelector('.rv-pause');
-    var cur = 0, timer = null, hold = false, stopped = !!reduce;
-    var show = function (i) {
-      cur = (i + slides.length) % slides.length;
-      slides.forEach(function (s, k) { s.hidden = k !== cur; });
-      dots.forEach(function (d, k) { if (k === cur) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+    var track = rv.querySelector('.rv-track');
+    var orig = Array.prototype.slice.call(track.children);
+    var count = orig.length;
+    orig.forEach(function (c) {
+      var k = c.cloneNode(true);
+      k.setAttribute('aria-hidden', 'true'); k.setAttribute('inert', '');
+      track.appendChild(k);
+    });
+    var cur = 0, timer = null, hold = false, busy = false;
+    var stepPx = function () {
+      var c = track.children[0];
+      return c.getBoundingClientRect().width + (parseFloat(getComputedStyle(track).columnGap) || 0);
     };
+    var place = function (animate) {
+      track.style.transition = animate ? '' : 'none';
+      track.style.transform = 'translateX(' + (-cur * stepPx()) + 'px)';
+      if (!animate) { void track.offsetWidth; track.style.transition = ''; }
+    };
+    var go = function (d) {
+      if (busy) return;
+      if (d < 0 && cur === 0) { cur = count; place(false); }
+      cur += d;
+      if (reduce) { place(false); if (cur >= count) { cur -= count; place(false); } return; }
+      busy = true; place(true);
+    };
+    track.addEventListener('transitionend', function (e) {
+      if (e.target !== track) return;
+      busy = false;
+      if (cur >= count) { cur -= count; place(false); }
+    });
     var tick = function () {
       clearInterval(timer); timer = null;
-      if (!stopped && !hold) timer = setInterval(function () { show(cur + 1); }, 7000);
+      if (!reduce && !hold) timer = setInterval(function () { go(1); }, 6000);
     };
-    var setStopped = function (v) {
-      stopped = v;
-      pauseBtn.textContent = v ? 'Play' : 'Pause';
-      pauseBtn.setAttribute('aria-label', v ? 'Start automatic rotation' : 'Pause automatic rotation');
-      rv.querySelector('.rv-track').setAttribute('aria-live', v ? 'polite' : 'off');
-      tick();
-    };
-    rv.querySelector('.rv-prev').addEventListener('click', function () { show(cur - 1); tick(); });
-    rv.querySelector('.rv-next').addEventListener('click', function () { show(cur + 1); tick(); });
-    dots.forEach(function (d, k) { d.addEventListener('click', function () { show(k); tick(); }); });
-    pauseBtn.addEventListener('click', function () { setStopped(!stopped); });
+    rv.querySelector('.rv-prev').addEventListener('click', function () { go(-1); tick(); });
+    rv.querySelector('.rv-next').addEventListener('click', function () { go(1); tick(); });
     rv.addEventListener('mouseenter', function () { hold = true; tick(); });
     rv.addEventListener('mouseleave', function () { hold = false; tick(); });
     rv.addEventListener('focusin', function () { hold = true; tick(); });
     rv.addEventListener('focusout', function (e) { if (!rv.contains(e.relatedTarget)) { hold = false; tick(); } });
-    setStopped(stopped);
+    window.addEventListener('resize', function () { place(false); });
+    tick();
   }
+
 
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
