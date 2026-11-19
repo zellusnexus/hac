@@ -302,6 +302,86 @@
     window.addEventListener('load', function () { layoutMason(true); });
   }
 
+  // Reviews carousel: a row of cards that slides one card every 6s and loops seamlessly
+  // (the cards are cloned once so the row never runs out). Pauses while hovered or focused;
+  // no automatic movement for visitors who prefer reduced motion.
+  var rv = document.querySelector('.rv');
+  if (rv) {
+    var track = rv.querySelector('.rv-track');
+    var orig = Array.prototype.slice.call(track.children);
+    var count = orig.length;
+    orig.forEach(function (c) {
+      var k = c.cloneNode(true);
+      k.setAttribute('aria-hidden', 'true'); k.setAttribute('inert', '');
+      track.appendChild(k);
+    });
+    var cur = 0, timer = null, hold = false, busy = false;
+    var dots = Array.prototype.slice.call(rv.querySelectorAll('.rv-dot'));
+    var mark = function () {
+      var k = cur % count;
+      dots.forEach(function (d, i) { if (i === k) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+    };
+    var stepPx = function () {
+      var c = track.children[0];
+      return c.getBoundingClientRect().width + (parseFloat(getComputedStyle(track).columnGap) || 0);
+    };
+    // One card at a time (phones): cards keep their natural height and the frame
+    // resizes to the card in view, so short reviews don't leave empty space.
+    var fit = function () {
+      var vp = rv.querySelector('.rv-viewport');
+      if (getComputedStyle(rv).getPropertyValue('--per').trim() !== '1') { vp.style.height = ''; return; }
+      vp.style.height = track.children[cur].offsetHeight + 'px';
+    };
+    var place = function (animate) {
+      track.style.transition = animate ? '' : 'none';
+      track.style.transform = 'translateX(' + (-cur * stepPx()) + 'px)';
+      mark();
+      fit();
+      if (!animate) { void track.offsetWidth; track.style.transition = ''; }
+    };
+    var go = function (d) {
+      if (busy) return;
+      if (d < 0 && cur === 0) { cur = count; place(false); }
+      cur += d;
+      if (reduce) { place(false); if (cur >= count) { cur -= count; place(false); } return; }
+      busy = true; place(true);
+    };
+    track.addEventListener('transitionend', function (e) {
+      if (e.target !== track) return;
+      busy = false;
+      if (cur >= count) { cur -= count; place(false); }
+    });
+    var tick = function () {
+      clearInterval(timer); timer = null;
+      if (!reduce && !hold) timer = setInterval(function () { go(1); }, 6000);
+    };
+    dots.forEach(function (d, i) { d.addEventListener('click', function () { if (busy || i === cur % count) return; cur = cur % count; go(i - cur); tick(); }); });
+    rv.querySelector('.rv-prev').addEventListener('click', function () { go(-1); tick(); });
+    rv.querySelector('.rv-next').addEventListener('click', function () { go(1); tick(); });
+    rv.addEventListener('mouseenter', function () { hold = true; tick(); });
+    rv.addEventListener('mouseleave', function () { hold = false; tick(); });
+    // Keyboard focus pauses; a mouse click on an arrow or dot doesn't.
+    rv.addEventListener('focusin', function (e) {
+      var kb = true; try { kb = e.target.matches(':focus-visible'); } catch (err) {}
+      if (kb) { hold = true; tick(); }
+    });
+    rv.addEventListener('focusout', function (e) { if (!rv.contains(e.relatedTarget)) { hold = false; tick(); } });
+    window.addEventListener('resize', function () { place(false); });
+    window.addEventListener('load', function () { place(false); });
+    place(false);
+    // Swipe left/right on touch screens.
+    var sx = null, sy = 0;
+    track.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; hold = true; tick(); }, { passive: true });
+    track.addEventListener('touchend', function (e) {
+      if (sx === null) return;
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+      sx = null; hold = false; tick();
+    });
+    tick();
+  }
+
+
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 })();
