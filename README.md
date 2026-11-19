@@ -28,7 +28,7 @@ especially the history timeline, industries served, FAQ answers, timelines, hour
   - `hero.mp4` (looping, muted drone/site clip) and `hero.jpg` (poster/fallback)
   - `about.jpg`, `project-1.jpg`, `project-2.jpg`, `project-3.jpg`
   Until then, tinted gradients show in their place.
-- **Testimonials:** `testimonials.html` quotes real 5-star Google reviews verbatim (long ones excerpted with "…"), attributed by first name and last initial. The "Read more reviews on Google" link opens the business's Google reviews.
+- **Testimonials:** `testimonials.html` quotes real 5-star Google reviews verbatim (long ones excerpted with "…"), attributed by first name and last initial. Each card's headline is a phrase taken from that same review. The "Read more reviews on Google" link opens the business's Google reviews.
 - **Gallery photos:** the galleries on `gallery-residential.html`, `gallery-commercial.html` and `gallery-builder.html` (and the cover tiles on `gallery.html`) are generated from
   `data/portfolio-images.txt` (one `<uploadcare-uuid> <filename>` per line). The filename prefix
   (`kitchen-`, `bar-`, `commercial-`…) picks the category and room group; see `GROUPS` in
