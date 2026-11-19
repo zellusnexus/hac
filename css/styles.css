@@ -780,6 +780,11 @@ a.project:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .quote-feature footer span { font-size: .72rem; letter-spacing: .08em; color: #a89c8c; }
 .quote-mason { columns: 3; column-gap: 24px; }
 .quote-mason .quote-card { break-inside: avoid; margin-bottom: 24px; }
+.quote-mason.is-cols { columns: auto; display: flex; gap: 24px; align-items: stretch; }
+.qm-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+.qm-col .quote-card { margin: 0; display: flex; flex-direction: column; }
+.quote-mason.is-even .qm-col .quote-card:last-child { flex: 1; }
+.qm-col .quote-card footer { margin-top: auto; }
 .quote-card h3 { font-family: var(--serif); font-size: 1.4rem; line-height: 1.25; margin: 0 0 .8rem; color: var(--ink); }
 .quote-mason .quote-card p { font-size: .98rem; color: var(--muted); }
 .quote-card { margin: 0; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--gold); padding: 1.8rem 1.8rem 1.5rem; }

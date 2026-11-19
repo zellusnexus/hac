@@ -263,6 +263,45 @@
     window.addEventListener('resize', kick);
   }
 
+  // Review mosaic: split cards into columns of near-equal height (page order kept within
+  // each column), then CSS stretches each column's last card so the bottoms line up.
+  var mason = document.querySelector('.quote-mason');
+  if (mason) {
+    var qCards = Array.prototype.slice.call(mason.querySelectorAll('.quote-card'));
+    var qCols = 0;
+    var layoutMason = function (force) {
+      var n = window.innerWidth > 1080 ? 3 : window.innerWidth > 760 ? 2 : 1;
+      if (n === qCols && !force) return;
+      qCols = n;
+      mason.innerHTML = '';
+      mason.classList.remove('is-even');
+      if (n === 1) { mason.classList.remove('is-cols'); qCards.forEach(function (c) { mason.appendChild(c); }); return; }
+      mason.classList.add('is-cols');
+      var cols = [];
+      for (var i = 0; i < n; i++) { var col = document.createElement('div'); col.className = 'qm-col'; mason.appendChild(col); cols.push(col); }
+      // Measure every card at column width, then try each way of splitting them across the
+      // columns (in page order) and keep the one whose column heights are closest together.
+      qCards.forEach(function (c) { cols[0].appendChild(c); });
+      var gap = parseFloat(getComputedStyle(cols[0]).rowGap) || 0;
+      var hs = qCards.map(function (c) { return c.offsetHeight; });
+      var best = null, bestSpread = Infinity, pick = [];
+      var total = Math.pow(n, qCards.length);
+      for (var k = 0; k < total; k++) {
+        var x = k, sum = [], cnt = [];
+        for (var j = 0; j < n; j++) { sum.push(0); cnt.push(0); }
+        for (var q = 0; q < qCards.length; q++) { var col = x % n; x = Math.floor(x / n); pick[q] = col; sum[col] += hs[q] + (cnt[col] ? gap : 0); cnt[col]++; }
+        if (cnt.indexOf(0) !== -1) continue;
+        var spread = Math.max.apply(null, sum) - Math.min.apply(null, sum);
+        if (spread < bestSpread) { bestSpread = spread; best = pick.slice(); }
+      }
+      qCards.forEach(function (c, q) { cols[best[q]].appendChild(c); });
+      mason.classList.add('is-even');
+    };
+    layoutMason();
+    window.addEventListener('resize', function () { layoutMason(); });
+    window.addEventListener('load', function () { layoutMason(true); });
+  }
+
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 })();
