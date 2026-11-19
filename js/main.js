@@ -325,10 +325,18 @@
       var c = track.children[0];
       return c.getBoundingClientRect().width + (parseFloat(getComputedStyle(track).columnGap) || 0);
     };
+    // One card at a time (phones): cards keep their natural height and the frame
+    // resizes to the card in view, so short reviews don't leave empty space.
+    var fit = function () {
+      var vp = rv.querySelector('.rv-viewport');
+      if (getComputedStyle(rv).getPropertyValue('--per').trim() !== '1') { vp.style.height = ''; return; }
+      vp.style.height = track.children[cur].offsetHeight + 'px';
+    };
     var place = function (animate) {
       track.style.transition = animate ? '' : 'none';
       track.style.transform = 'translateX(' + (-cur * stepPx()) + 'px)';
       mark();
+      fit();
       if (!animate) { void track.offsetWidth; track.style.transition = ''; }
     };
     var go = function (d) {
@@ -359,6 +367,17 @@
     });
     rv.addEventListener('focusout', function (e) { if (!rv.contains(e.relatedTarget)) { hold = false; tick(); } });
     window.addEventListener('resize', function () { place(false); });
+    window.addEventListener('load', function () { place(false); });
+    place(false);
+    // Swipe left/right on touch screens.
+    var sx = null, sy = 0;
+    track.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; hold = true; tick(); }, { passive: true });
+    track.addEventListener('touchend', function (e) {
+      if (sx === null) return;
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+      sx = null; hold = false; tick();
+    });
     tick();
   }
 
