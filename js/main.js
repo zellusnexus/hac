@@ -325,18 +325,10 @@
       var c = track.children[0];
       return c.getBoundingClientRect().width + (parseFloat(getComputedStyle(track).columnGap) || 0);
     };
-    // One card at a time (phones): cards keep their natural height and the frame
-    // resizes to the card in view, so short reviews don't leave empty space.
-    var fit = function () {
-      var vp = rv.querySelector('.rv-viewport');
-      if (getComputedStyle(rv).getPropertyValue('--per').trim() !== '1') { vp.style.height = ''; return; }
-      vp.style.height = track.children[cur].offsetHeight + 'px';
-    };
     var place = function (animate) {
       track.style.transition = animate ? '' : 'none';
       track.style.transform = 'translateX(' + (-cur * stepPx()) + 'px)';
       mark();
-      fit();
       if (!animate) { void track.offsetWidth; track.style.transition = ''; }
     };
     var go = function (d) {
