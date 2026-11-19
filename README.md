@@ -22,12 +22,13 @@ especially the history timeline, industries served, FAQ answers, timelines, hour
 
 ## Before launch
 - **Contact info** (phone, fax, email, address, hours, map) comes from the current site, mastercraftsmanship.net.
-- **Copy:** elements marked `data-placeholder` (project captions, testimonials, history timeline) are stand-ins. Replace them with real content.
+- **Copy:** elements marked `data-placeholder` (project captions, history timeline, some section copy) are stand-ins. Replace them with real content.
 - **Logo:** loaded from Uploadcare (header, footer, favicon). To self-host, save it as `assets/logo.png` and update the three URLs in `index.html`. The artwork is white-on-transparent, so keep it on dark backgrounds.
 - **Media:** add files to `assets/` and they'll be picked up automatically:
   - `hero.mp4` (looping, muted drone/site clip) and `hero.jpg` (poster/fallback)
   - `about.jpg`, `project-1.jpg`, `project-2.jpg`, `project-3.jpg`
   Until then, tinted gradients show in their place.
+- **Testimonials:** `testimonials.html` quotes real 5-star Google reviews verbatim (long ones excerpted with "…"), attributed by first name and last initial. The "Read more reviews on Google" link is a Google search; swap in the business's exact Google reviews link if you have it.
 - **Gallery photos:** the galleries on `gallery-residential.html`, `gallery-commercial.html` and `gallery-builder.html` (and the cover tiles on `gallery.html`) are generated from
   `data/portfolio-images.txt` (one `<uploadcare-uuid> <filename>` per line). The filename prefix
   (`kitchen-`, `bar-`, `commercial-`…) picks the category and room group; see `GROUPS` in
