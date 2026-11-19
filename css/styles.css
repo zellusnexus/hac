@@ -485,6 +485,8 @@ p { margin: 0 0 1em; }
   .rv { --per: 1; }
   .rv-viewport { transition: height .5s cubic-bezier(.4,0,.2,1); }
   .rv-track { align-items: flex-start; touch-action: pan-y; }
+  .rv-arrow { display: none; }
+  .rv-controls { margin-top: 1.4rem; }
 }
 
 /* CTA / contact */
