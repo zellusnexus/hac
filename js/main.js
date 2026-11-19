@@ -302,6 +302,41 @@
     window.addEventListener('load', function () { layoutMason(true); });
   }
 
+  // Reviews carousel: fades through slides every 7s. Pauses while hovered or focused,
+  // stays paused once the visitor presses Pause, and never auto-rotates for reduced motion.
+  var rv = document.querySelector('.rv');
+  if (rv) {
+    var slides = Array.prototype.slice.call(rv.querySelectorAll('.rv-slide'));
+    var dots = Array.prototype.slice.call(rv.querySelectorAll('.rv-dot'));
+    var pauseBtn = rv.querySelector('.rv-pause');
+    var cur = 0, timer = null, hold = false, stopped = !!reduce;
+    var show = function (i) {
+      cur = (i + slides.length) % slides.length;
+      slides.forEach(function (s, k) { s.hidden = k !== cur; });
+      dots.forEach(function (d, k) { if (k === cur) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+    };
+    var tick = function () {
+      clearInterval(timer); timer = null;
+      if (!stopped && !hold) timer = setInterval(function () { show(cur + 1); }, 7000);
+    };
+    var setStopped = function (v) {
+      stopped = v;
+      pauseBtn.textContent = v ? 'Play' : 'Pause';
+      pauseBtn.setAttribute('aria-label', v ? 'Start automatic rotation' : 'Pause automatic rotation');
+      rv.querySelector('.rv-track').setAttribute('aria-live', v ? 'polite' : 'off');
+      tick();
+    };
+    rv.querySelector('.rv-prev').addEventListener('click', function () { show(cur - 1); tick(); });
+    rv.querySelector('.rv-next').addEventListener('click', function () { show(cur + 1); tick(); });
+    dots.forEach(function (d, k) { d.addEventListener('click', function () { show(k); tick(); }); });
+    pauseBtn.addEventListener('click', function () { setStopped(!stopped); });
+    rv.addEventListener('mouseenter', function () { hold = true; tick(); });
+    rv.addEventListener('mouseleave', function () { hold = false; tick(); });
+    rv.addEventListener('focusin', function () { hold = true; tick(); });
+    rv.addEventListener('focusout', function (e) { if (!rv.contains(e.relatedTarget)) { hold = false; tick(); } });
+    setStopped(stopped);
+  }
+
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 })();
