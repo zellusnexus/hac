@@ -473,7 +473,13 @@ p { margin: 0 0 1em; }
   .rv-viewport { grid-column: 2; grid-row: 1; }
   .rv-prev { grid-column: 1; grid-row: 1; }
   .rv-next { grid-column: 3; grid-row: 1; }
+  .rv-dots { grid-column: 2; grid-row: 2; justify-content: center; margin-top: 1.8rem; }
 }
+.rv-dots { display: flex; gap: 10px; }
+.rv-dot { width: 9px; height: 9px; padding: 0; border-radius: 50%; border: 0; background: #d6ccbd; cursor: pointer; position: relative; transition: background .25s, transform .25s; }
+.rv-dot::after { content: ""; position: absolute; inset: -8px; }
+.rv-dot:hover { background: var(--gold-light); }
+.rv-dot[aria-current="true"] { background: var(--gold); transform: scale(1.3); }
 @media (max-width: 1080px) { .rv { --per: 2; } }
 @media (max-width: 760px) { .rv { --per: 1; } }
 

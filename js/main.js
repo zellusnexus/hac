@@ -316,6 +316,11 @@
       track.appendChild(k);
     });
     var cur = 0, timer = null, hold = false, busy = false;
+    var dots = Array.prototype.slice.call(rv.querySelectorAll('.rv-dot'));
+    var mark = function () {
+      var k = cur % count;
+      dots.forEach(function (d, i) { if (i === k) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+    };
     var stepPx = function () {
       var c = track.children[0];
       return c.getBoundingClientRect().width + (parseFloat(getComputedStyle(track).columnGap) || 0);
@@ -323,6 +328,7 @@
     var place = function (animate) {
       track.style.transition = animate ? '' : 'none';
       track.style.transform = 'translateX(' + (-cur * stepPx()) + 'px)';
+      mark();
       if (!animate) { void track.offsetWidth; track.style.transition = ''; }
     };
     var go = function (d) {
@@ -341,11 +347,16 @@
       clearInterval(timer); timer = null;
       if (!reduce && !hold) timer = setInterval(function () { go(1); }, 6000);
     };
+    dots.forEach(function (d, i) { d.addEventListener('click', function () { if (busy || i === cur % count) return; cur = cur % count; go(i - cur); tick(); }); });
     rv.querySelector('.rv-prev').addEventListener('click', function () { go(-1); tick(); });
     rv.querySelector('.rv-next').addEventListener('click', function () { go(1); tick(); });
     rv.addEventListener('mouseenter', function () { hold = true; tick(); });
     rv.addEventListener('mouseleave', function () { hold = false; tick(); });
-    rv.addEventListener('focusin', function () { hold = true; tick(); });
+    // Keyboard focus pauses; a mouse click on an arrow or dot doesn't.
+    rv.addEventListener('focusin', function (e) {
+      var kb = true; try { kb = e.target.matches(':focus-visible'); } catch (err) {}
+      if (kb) { hold = true; tick(); }
+    });
     rv.addEventListener('focusout', function (e) { if (!rv.contains(e.relatedTarget)) { hold = false; tick(); } });
     window.addEventListener('resize', function () { place(false); });
     tick();
